@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stop Slop — Kill AI design slop at the source</title>
+<meta name="description" content="A skill pack that catches the patterns your eye has gone blind to. Inter as the default font. Lavender-purple accents. Card soup. Cut them.">
+<meta name="author" content="Stop Slop contributors">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --color-bg: #F5F0EB;
+  --color-surface: #FFFFFF;
+  --color-text: #1C1917;
+  --color-text-secondary: #57534E;
+  --color-text-muted: #78716C;
+  --color-accent: #C4493C;
+  --color-accent-hover: #A63A2F;
+  --color-border: #E7E5E4;
+  --color-border-strong: #D6D3D1;
+  --font-display: 'Fraunces', 'Georgia', serif;
+  --font-body: 'Inter', 'system-ui', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Menlo', monospace;
+  --text-xs: 0.64rem;
+  --text-sm: 0.8rem;
+  --text-base: 1rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.563rem;
+  --text-2xl: 1.953rem;
+  --text-3xl: 2.441rem;
+  --text-4xl: 3.052rem;
+  --text-5xl: 3.815rem;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-8: 3rem;
+  --space-10: 4rem;
+  --space-12: 5rem;
+  --space-16: 8rem;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.6;
+  color: var(--color-text);
+  background: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+section {
+  padding: var(--space-12) 0;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: var(--space-6);
+  padding-right: var(--space-6);
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: var(--space-5) var(--space-6);
+  max-width: 1200px;
+  margin: 0 auto;
+  border-bottom: 1px solid var(--color-border);
+}
+nav .logo {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+nav .logo span { color: var(--color-accent); }
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: var(--space-6);
+}
+nav a {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  font-size: var(--text-sm);
+  transition: color var(--duration-normal) var(--ease-out-expo);
+}
+nav a:hover { color: var(--color-accent); }
+
+.hero {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: var(--space-10);
+  padding-top: var(--space-16);
+  padding-bottom: var(--space-16);
+  align-items: center;
+}
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: var(--text-5xl);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  margin-bottom: var(--space-5);
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--color-accent);
+  font-weight: 400;
+}
+.hero .subhead {
+  font-size: var(--text-lg);
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  max-width: 38ch;
+  margin-bottom: var(--space-6);
+}
+.hero .cta-row {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+}
+.btn-primary {
+  display: inline-block;
+  background: var(--color-accent);
+  color: var(--color-surface);
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: var(--text-sm);
+  transition: background var(--duration-normal) var(--ease-out-expo);
+}
+.btn-primary:hover { background: var(--color-accent-hover); }
+.btn-secondary {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  border-bottom: 1px solid var(--color-border-strong);
+  padding-bottom: 2px;
+  transition: color var(--duration-normal) var(--ease-out-expo);
+}
+.btn-secondary:hover { color: var(--color-accent); }
+
+.terminal {
+  background: #1C1917;
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  line-height: 1.7;
+  color: #D4D4D8;
+  overflow-x: auto;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+.terminal .prompt { color: #78716C; }
+.terminal .bad { color: #FCA5A5; }
+.terminal .accent { color: #E85D4A; }
+.terminal .muted { color: #78716C; }
+
+.section-heading {
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-2);
+  line-height: 1.1;
+}
+.section-label {
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  font-weight: 500;
+  margin-bottom: var(--space-3);
+}
+
+.ladder {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-10);
+  margin-top: var(--space-8);
+}
+.ladder ol {
+  list-style: none;
+  counter-reset: rung;
+}
+.ladder li {
+  counter-increment: rung;
+  padding: var(--space-5) 0;
+  border-bottom: 1px solid var(--color-border);
+  display: grid;
+  grid-template-columns: 3rem 1fr;
+  gap: var(--space-4);
+  align-items: baseline;
+}
+.ladder li::before {
+  content: counter(rung);
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 400;
+  color: var(--color-accent);
+  font-style: italic;
+}
+.ladder li h3 {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  margin-bottom: var(--space-2);
+}
+.ladder li p {
+  color: var(--color-text-secondary);
+  font-size: var(--text-base);
+  line-height: 1.5;
+}
+
+.comparison {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-6);
+  margin-top: var(--space-8);
+}
+.comparison .panel {
+  padding: var(--space-6);
+  border-radius: var(--radius-lg);
+}
+.comparison .before {
+  background: #F0EEEA;
+  border: 1px solid var(--color-border);
+}
+.comparison .after {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+}
+.comparison .panel-label {
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-4);
+  font-weight: 500;
+}
+.comparison .before .panel-label { color: var(--color-accent); }
+.comparison .after .panel-label { color: #3D8B5E; }
+.comparison .panel h4 {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 500;
+  margin-bottom: var(--space-3);
+  line-height: 1.2;
+}
+.comparison .panel p {
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+}
+
+.patterns-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-6) var(--space-10);
+  margin-top: var(--space-8);
+}
+.pattern-group h3 {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 500;
+  margin-bottom: var(--space-3);
+  color: var(--color-text);
+}
+.pattern-group ul { list-style: none; }
+.pattern-group li {
+  padding: var(--space-2) 0;
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  border-bottom: 1px dotted var(--color-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.pattern-group li .count {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.detection-output {
+  background: #1C1917;
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  line-height: 1.7;
+  color: #D4D4D8;
+  margin-top: var(--space-6);
+  overflow-x: auto;
+}
+.detection-output .pass { color: #A7F3D0; }
+.detection-output .muted { color: #78716C; }
+.detection-output .prompt { color: #78716C; }
+.detection-output .accent { color: #E85D4A; }
+
+.packs {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: var(--space-6);
+  margin-top: var(--space-8);
+}
+.pack {
+  padding: var(--space-6);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+.pack.ultimate { border-color: var(--color-accent); }
+.pack h3 {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 500;
+  margin-bottom: var(--space-2);
+  letter-spacing: -0.01em;
+}
+.pack .tagline {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-5);
+}
+.pack .specs {
+  list-style: none;
+  margin-bottom: var(--space-5);
+}
+.pack .specs li {
+  padding: var(--space-2) 0;
+  font-size: var(--text-sm);
+  border-bottom: 1px dotted var(--color-border);
+  display: flex;
+  justify-content: space-between;
+}
+.pack .specs li span:last-child {
+  color: var(--color-text-secondary);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+}
+
+.all-download {
+  margin-top: var(--space-8);
+  padding: var(--space-5);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+.all-download .name {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 500;
+  margin-bottom: var(--space-1);
+}
+.all-download .desc {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+footer {
+  border-top: 1px solid var(--color-border);
+  padding: var(--space-8) var(--space-6);
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+footer a {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+}
+footer a:hover { color: var(--color-accent); }
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-in {
+  animation: fadeSlideUp var(--duration-slow) var(--ease-out-expo) both;
+}
+.animate-in:nth-child(1) { animation-delay: 0ms; }
+.animate-in:nth-child(2) { animation-delay: 80ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-in { animation: none; }
+  * { transition: none !important; }
+}
+
+@media (max-width: 768px) {
+  .hero, .ladder, .comparison, .patterns-grid, .packs {
+    grid-template-columns: 1fr;
+  }
+  .hero h1 { font-size: var(--text-4xl); }
+  nav ul { gap: var(--space-4); }
+  nav { flex-direction: column; align-items: flex-start; gap: var(--space-3); }
+  section { padding: var(--space-8) 0; }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .packs { grid-template-columns: 1fr 1fr; }
+}
+
+.prose { max-width: 70ch; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">stop<span>.</span>slop</div>
+  <ul>
+    <li><a href="#ladder">The ladder</a></li>
+    <li><a href="#patterns">Patterns</a></li>
+    <li><a href="#detection">Detection</a></li>
+    <li><a href="#packs">Get the pack</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="animate-in">
+    <h1>Kill AI design slop <em>at the source.</em></h1>
+    <p class="subhead">A skill pack that catches the patterns your eye has gone blind to. Inter as the default font. Lavender-purple accents. Card soup. Centered hero with a badge above the H1. Cut them.</p>
+    <div class="cta-row">
+      <a href="#packs" class="btn-primary">Get the pack</a>
+      <a href="#detection" class="btn-secondary">Run detection</a>
+    </div>
+  </div>
+  <div class="terminal animate-in">
+    <div><span class="prompt">$</span> node cli.mjs detect-files ./hero.html</div>
+    <div><span class="muted">Scanning 1 file...</span></div>
+    <div>&nbsp;</div>
+    <div><span class="bad">Score: 31/100 · Tier: maximum</span></div>
+    <div><span class="muted">Triggered: 9/20 patterns</span></div>
+    <div>&nbsp;</div>
+    <div><span class="accent">[3x]</span> inter_as_default</div>
+    <div><span class="accent">[3x]</span> lavender_purple</div>
+    <div><span class="accent">[3x]</span> colored_left_border_cards</div>
+    <div><span class="accent">[2x]</span> blue_purple_gradient</div>
+    <div><span class="accent">[2x]</span> gradient_text</div>
+    <div><span class="accent">[2x]</span> glassmorphism_everywhere</div>
+    <div><span class="accent">[1x]</span> pure_black_background</div>
+    <div>&nbsp;</div>
+    <div><span class="bad">Verdict: redesign</span></div>
+  </div>
+</section>
+
+<section id="ladder">
+  <div class="section-label">The method</div>
+  <h2 class="section-heading">Run the ladder. Stop at the first broken rung.</h2>
+  <div class="ladder">
+    <div>
+      <p class="prose" style="color: var(--color-text-secondary); font-size: var(--text-lg); line-height: 1.5;">The ladder is a reflex, not a research project. Two rungs work, take the higher one and move on. Fix the first broken rung. Re-run. Continue until the page passes every rung.</p>
+      <p style="margin-top: var(--space-5); color: var(--color-text-muted); font-size: var(--text-sm);">Same energy as Ponytail's ladder for code. Applied to design.</p>
+    </div>
+    <ol>
+      <li><div><h3>System</h3><p>Tokens defined before components. Color, type, spacing, elevation, motion. No token, no property.</p></div></li>
+      <li><div><h3>Type</h3><p>Two fonts minimum. Display paired with body. Size contrast of 1.25x or more between steps.</p></div></li>
+      <li><div><h3>Color</h3><p>No lavender-purple. No blue-to-purple gradients. No pure black. Tint everything toward a brand hue.</p></div></li>
+      <li><div><h3>Layout</h3><p>Left-align body text. One strong primitive repeated. No card soup. No colored left borders.</p></div></li>
+      <li><div><h3>Motion</h3><p>Ease-out, not bounce. Transform and opacity only. One orchestrated entrance. Stillness elsewhere.</p></div></li>
+      <li><div><h3>Content</h3><p>Specific headlines. Real metrics. Real photos. No label plus sublabel plus helper text all saying the same thing.</p></div></li>
+      <li><div><h3>Detection</h3><p>Run the script. Score the page. Ship if clean, revise if mild, redesign if heavy or maximum.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<section id="before-after">
+  <div class="section-label">Proof</div>
+  <h2 class="section-heading">What the skill does to a default SaaS hero.</h2>
+  <div class="comparison">
+    <div class="panel before">
+      <div class="panel-label">Before · AI first draft</div>
+      <h4>Build the Future of Your Business</h4>
+      <p>Full-width purple-to-blue gradient. Centered H1 in Inter Bold 48px. Small pill badge above reading "Now in Beta" with purple background. Two buttons. Three centered metrics in Inter Regular 14px gray. The output looks like every other AI-generated page.</p>
+      <p style="margin-top: var(--space-3); font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-accent);">12 patterns triggered · Score 31/100 · Maximum slop</p>
+    </div>
+    <div class="panel after">
+      <div class="panel-label">After · Stop Slop applied</div>
+      <h4>Your deploy pipeline runs in 12 seconds.</h4>
+      <p>Solid warm-charcoal background. Left-aligned H1 in a display serif at 56px. One button in coral. Right side: actual terminal screenshot showing a real deployment log. No metrics row. No badge. Specific headline. Real evidence.</p>
+      <p style="margin-top: var(--space-3); font-family: var(--font-mono); font-size: var(--text-xs); color: #3D8B5E;">0 patterns triggered · Score 94/100 · Clean</p>
+    </div>
+  </div>
+</section>
+
+<section id="patterns">
+  <div class="section-label">The catalog</div>
+  <h2 class="section-heading">50 patterns in Ultimate. 35 in Pro.</h2>
+  <p class="prose" style="color: var(--color-text-secondary); margin-top: var(--space-4); font-size: var(--text-lg);">Each pattern has a detection hint and a fix. The catalog is not a list of things that are always bad. It is a list of things that are slop when used by default, without deliberate choice.</p>
+  <div class="patterns-grid">
+    <div class="pattern-group">
+      <h3>Typography</h3>
+      <ul>
+        <li><span>Inter used for everything</span><span class="count">3x</span></li>
+        <li><span>Space Grotesk for accent words</span><span class="count">2x</span></li>
+        <li><span>Single font family</span><span class="count">2x</span></li>
+        <li><span>Flat size hierarchy</span><span class="count">2x</span></li>
+        <li><span>Monospace as technical shorthand</span><span class="count">1x</span></li>
+        <li><span>All-caps body text</span><span class="count">1x</span></li>
+      </ul>
+    </div>
+    <div class="pattern-group">
+      <h3>Color</h3>
+      <ul>
+        <li><span>Lavender-purple accents</span><span class="count">3x</span></li>
+        <li><span>Blue-to-purple gradients</span><span class="count">2x</span></li>
+        <li><span>Gradient text</span><span class="count">2x</span></li>
+        <li><span>Neon glow shadows</span><span class="count">2x</span></li>
+        <li><span>Pure black background</span><span class="count">1x</span></li>
+        <li><span>Aurora mesh background</span><span class="count">2x</span></li>
+      </ul>
+    </div>
+    <div class="pattern-group">
+      <h3>Layout</h3>
+      <ul>
+        <li><span>Everything centered</span><span class="count">1x</span></li>
+        <li><span>Badge above hero H1</span><span class="count">2x</span></li>
+        <li><span>Colored left border on cards</span><span class="count">3x</span></li>
+        <li><span>Identical feature cards</span><span class="count">3x</span></li>
+        <li><span>Cards inside cards</span><span class="count">2x</span></li>
+        <li><span>Centered hero trio</span><span class="count">2x</span></li>
+      </ul>
+    </div>
+    <div class="pattern-group">
+      <h3>Motion and content</h3>
+      <ul>
+        <li><span>Bounce or elastic easing</span><span class="count">2x</span></li>
+        <li><span>Glassmorphism everywhere</span><span class="count">2x</span></li>
+        <li><span>Scroll-jacking</span><span class="count">2x</span></li>
+        <li><span>AI sparkle badge</span><span class="count">2x</span></li>
+        <li><span>Vague aspirational headline</span><span class="count">2x</span></li>
+        <li><span>"Trusted by" logo strip</span><span class="count">2x</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="detection">
+  <div class="section-label">Run it</div>
+  <h2 class="section-heading">Detection ships as two scripts. Both run.</h2>
+  <p class="prose" style="color: var(--color-text-secondary); margin-top: var(--space-4); font-size: var(--text-lg);">URL mode loads the page in Playwright and walks the DOM. File mode parses HTML and CSS directly, no browser. Both output the same JSON. Both use the same weighted checks.</p>
+  <div class="detection-output">
+    <div><span class="muted"># URL mode (Playwright)</span></div>
+    <div><span class="prompt">$</span> node cli.mjs detect https://your-site.com</div>
+    <div>&nbsp;</div>
+    <div><span class="muted"># Static file mode (no browser)</span></div>
+    <div><span class="prompt">$</span> node cli.mjs detect-files ./src</div>
+    <div>&nbsp;</div>
+    <div><span class="muted"># Output: JSON to stdout, summary to stderr</span></div>
+    <div>{</div>
+    <div>&nbsp;&nbsp;<span class="accent">"score"</span>: 94,</div>
+    <div>&nbsp;&nbsp;<span class="accent">"tier"</span>: <span class="pass">"clean"</span>,</div>
+    <div>&nbsp;&nbsp;<span class="accent">"verdict"</span>: <span class="pass">"ship"</span>,</div>
+    <div>&nbsp;&nbsp;<span class="accent">"triggeredCount"</span>: 1,</div>
+    <div>&nbsp;&nbsp;<span class="accent">"totalChecks"</span>: 35</div>
+    <div>}</div>
+  </div>
+</section>
+
+<section id="packs">
+  <div class="section-label">Three skills, one repo</div>
+  <h2 class="section-heading">Pick your weapon. All three live in slop-buster.</h2>
+  <p class="prose" style="color: var(--color-text-secondary); margin-top: var(--space-4); font-size: var(--text-lg); margin-bottom: var(--space-8);">Download a single skill, or grab the whole repo. Push a tag and GitHub Releases builds the zips for you.</p>
+  <div class="packs">
+    <div class="pack">
+      <h3>Stop Slop Advanced</h3>
+      <p class="tagline">The original reference skill. No detection. Manual application.</p>
+      <ul class="specs">
+        <li><span>Skills</span><span>1 (single)</span></li>
+        <li><span>Patterns</span><span>~25</span></li>
+        <li><span>Detection</span><span>None</span></li>
+        <li><span>Voice</span><span>Reference</span></li>
+        <li><span>License</span><span>MIT</span></li>
+      </ul>
+      <a href="https://github.com/The-greg-guy/slop-buster/releases/download/Major_Release/stop-slop-advanced.zip" class="btn-secondary">Download (30KB)</a>
+    </div>
+    <div class="pack">
+      <h3>Stop Slop Pro</h3>
+      <p class="tagline">Design slop plus text slop. Two peer skills. 35 patterns.</p>
+      <ul class="specs">
+        <li><span>Skills</span><span>design, text</span></li>
+        <li><span>Patterns</span><span>35</span></li>
+        <li><span>Detection checks</span><span>20</span></li>
+        <li><span>Examples</span><span>6</span></li>
+        <li><span>Voice</span><span>Level 1 direct</span></li>
+        <li><span>License</span><span>MIT</span></li>
+      </ul>
+      <a href="https://github.com/The-greg-guy/slop-buster/releases/download/Major_Release/stop-slop-pro.zip" class="btn-secondary">Download (42KB)</a>
+    </div>
+    <div class="pack ultimate">
+      <h3>Stop Slop Ultimate</h3>
+      <p class="tagline">Adds ponytail. Three peer skills. 50 patterns.</p>
+      <ul class="specs">
+        <li><span>Skills</span><span>design, text, ponytail</span></li>
+        <li><span>Patterns</span><span>50</span></li>
+        <li><span>Detection checks</span><span>35</span></li>
+        <li><span>Examples</span><span>10</span></li>
+        <li><span>Tailwind</span><span>v3 + v4</span></li>
+        <li><span>Voice</span><span>Level 2 direct</span></li>
+        <li><span>License</span><span>MIT</span></li>
+      </ul>
+      <a href="https://github.com/The-greg-guy/slop-buster/releases/download/Major_Release/stop-slop-ultimate.zip" class="btn-primary">Download (60KB)</a>
+    </div>
+  </div>
+
+</section>
+
+
+<footer>
+  <div>slop-buster · MIT · Built with the skill applied to itself.</div>
+  <div>
+    <a href="https://github.com/The-greg-guy/slop-buster" target="_blank" rel="noopener noreferrer">GitHub</a>
+    ·
+    <a href="https://github.com/The-greg-guy/slop-buster/releases">Releases</a>
+  </div>
+</footer>
+
+</body>
+</html>
