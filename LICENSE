@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2026 Gergory
+Copyright (c) 2026 Slop Busters contributors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -19,3 +19,22 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+---
+
+Attribution
+
+The text-slop skill in stop-slop-pro and stop-slop-ultimate is adapted from
+the stop-slop skill by Hardik Pandya (https://hvpandya.com), originally
+released under the MIT License.
+
+The ponytail skill in stop-slop-ultimate is adapted from Ponytail 4.7.0 by
+Dietrich Gebert (https://github.com/DietrichGebert/ponytail), originally
+released under the MIT-0 License. The derivative ships as version 1.0.0.
+
+The design-slop skill builds on research by Adrian Krebs
+(https://github.com/AdrianKrebs/ai-design-checker) and Paul Bakaus
+(https://impeccable.style), both released under permissive licenses.
+
+The stop-slop-advanced skill is the original work included in this repo,
+building on the same research.

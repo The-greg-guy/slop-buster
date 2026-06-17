@@ -1,0 +1,29 @@
+{
+  "name": "slop-buster",
+  "version": "1.0.0",
+  "description": "Three skills for killing AI slop. One repo.",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "detect:pro": "node skills/stop-slop-pro/skills/design-slop/references/cli.mjs detect",
+    "detect:ultimate": "node skills/stop-slop-ultimate/skills/design-slop/references/cli.mjs detect",
+    "detect-files:pro": "node skills/stop-slop-pro/skills/design-slop/references/cli.mjs detect-files",
+    "detect-files:ultimate": "node skills/stop-slop-ultimate/skills/design-slop/references/cli.mjs detect-files",
+    "list:pro": "node skills/stop-slop-pro/skills/design-slop/references/cli.mjs list",
+    "list:ultimate": "node skills/stop-slop-ultimate/skills/design-slop/references/cli.mjs list",
+    "build-releases": "bash scripts/build-releases.sh"
+  },
+  "keywords": [
+    "ai-slop",
+    "design-system",
+    "design-audit",
+    "yagni",
+    "skills",
+    "claude-skills",
+    "ponytail"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/The-greg-guy/slop-buster.git"
+  }
+}

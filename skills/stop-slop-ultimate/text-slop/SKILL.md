@@ -1,0 +1,119 @@
+---
+name: text-slop
+version: 1.0.0
+description: Eliminate predictable AI writing patterns from prose. Loaded as a peer to design-slop and ponytail within Stop Slop Ultimate.
+metadata:
+  trigger: Writing prose, editing drafts, reviewing content for AI patterns
+  author: Adapted from Hardik Pandya (https://hvpandya.com) under MIT
+  parent_pack: stop-slop-ultimate
+---
+
+# Text Slop
+
+Eliminate predictable AI writing patterns from prose.
+
+AI text slop, AI design slop, and AI code bloat are the same disease. Statistical-average output. Predictable phrases. Formulaic structures. Metronomic rhythm. The reader can tell. The fix is the same in every case: cut the default, pick the specific.
+
+## Persistence
+
+Active every response until `stop slop` or `normal mode`. The pack persists across turns. This skill persists with it.
+
+## Core rules
+
+1. **Cut filler phrases.** Remove throat-clearing openers, emphasis crutches, and all adverbs. See [references/phrases.md](references/phrases.md).
+
+2. **Break formulaic structures.** Avoid binary contrasts, negative listings, dramatic fragmentation, rhetorical setups, false agency. See [references/structures.md](references/structures.md).
+
+3. **Use active voice.** Every sentence needs a human subject doing something. No passive constructions. No inanimate objects performing human actions. Complaints do not "become" fixes. Decisions do not "emerge." A person does something to make those things happen.
+
+4. **Be specific.** No vague declaratives. Name the specific thing. No lazy extremes. "Every" and "always" and "never" doing vague work get cut.
+
+5. **Put the reader in the room.** No narrator-from-a-distance voice. "You" beats "People." Specifics beat abstractions.
+
+6. **Vary rhythm.** Mix sentence lengths. Two items beat three. End paragraphs differently. No em-dashes. Use commas or periods.
+
+7. **Trust readers.** State facts. Skip softening, justification, hand-holding.
+
+8. **Cut quotables.** If it sounds like a pull-quote, rewrite it.
+
+## Quick checks
+
+Before delivering prose:
+
+- Adverbs present? Cut them.
+- Passive voice? Find the actor, make them the subject.
+- Inanimate thing doing a human verb? Name the person.
+- Sentence starts with a Wh- word? Restructure.
+- Any "here's what/this/that" throat-clearing? Cut to the point.
+- Any "not X, it's Y" contrast? State Y.
+- Three consecutive sentences match length? Break one.
+- Paragraph ends with a punchy one-liner? Vary it.
+- Em-dash present? Replace with a comma or period.
+- Vague declarative? Name the specific thing.
+- Narrator-from-a-distance? Put the reader in the scene.
+- Meta-joiner ("The rest of this essay...")? Delete. Let the essay move.
+- Listicle framing ("5 ways to...")? Reframe.
+- Problem-solution-solution-solution template? Cut the repeats.
+- "Imagine a world" opener? Cut it.
+- Rhetorical question chain? Cut the questions, state the answers.
+
+## Scoring
+
+Rate 1 to 10 on each dimension.
+
+| Dimension | Question |
+|-----------|----------|
+| Directness | Statements or announcements? |
+| Rhythm | Varied or metronomic? |
+| Trust | Respects reader intelligence? |
+| Authenticity | Sounds human? |
+| Density | Anything cuttable? |
+
+Maximum score: 50. Below 35: revise. Below 20: rewrite.
+
+## Output protocol
+
+Every audit response follows this shape. No prose preamble.
+
+```
+Score: X/50 · Tier: clean|mild|heavy|maximum
+Triggered: (offense, location, fix) × N
+Verdict: ship | revise | rewrite
+```
+
+Tier buckets: 0 to 2 offenses clean. 3 to 5 mild. 6 to 8 heavy. 9 or more maximum.
+
+## Intensity integration
+
+The pack-level `/slop lite|full|ultra` switch governs this skill.
+
+- **lite.** Check five things: adverbs, passive voice, throat-clearing, em-dashes, vague declaratives. Report in one line.
+- **full.** Run the full quick-checks list. Score. Propose fixes. Default.
+- **ultra.** Everything in full. Plus: any paragraph with 2 or more offenses is flagged for rewrite, not patching. The skill says "rewrite this paragraph" and stops proposing line-level fixes within it.
+
+## Carve-outs
+
+**ONLY WHEN YOU ARE 100% SURE.**
+
+These rules are defaults. The exceptions below exist for cases where breaking the rule is the right choice and you can defend it. If you cannot defend the choice in one sentence, the rule holds. When in doubt, follow the rule.
+
+- **Passive voice.** Defense required: "The actor is unknown and unimportant, or the scientific register requires it." Academic writing and lab reports qualify. Marketing copy does not.
+- **Three-item list.** Defense required: "The three items form a genuine trinity where removing one breaks the set." Past, present, future. Blood, sweat, tears. Most three-item lists are padding. Cut one.
+- **Wh- sentence starter.** Defense required: "The question form is the point." Socratic dialogue, structured interviews. Prose exposition does not qualify.
+- **Em-dash.** Defense required, rare: "The break is more abrupt than a comma and more connected than a period, and a parenthetical would not work." The defense almost never holds. Use a comma or period instead.
+- **Adverb.** Defense required: "The adverb changes the meaning of the verb in a way no other word can." "Quietly left" means something different from "left." Most adverbs add no meaning. Cut them.
+- **Listicle framing.** Defense required: "The number is the point and each item earns its place." Most listicles are padding. Pick the two best items. Cut the rest.
+
+If you find yourself writing a defense longer than one sentence, you are rationalizing. Follow the rule.
+
+## Loading order
+
+References load on demand.
+
+1. `references/phrases.md` when checking for banned phrases.
+2. `references/structures.md` when checking for structural patterns.
+3. `references/examples.md` when demonstrating before and after.
+
+## License
+
+MIT. Adapted from Hardik Pandya's stop-slop skill (https://hvpandya.com), originally released under MIT. The adaptation preserves the original rules and reference catalogs while adding carve-outs, an output protocol, expanded phrase and structure catalogs, and pack integration. See pack-level `LICENSE` for full text.
