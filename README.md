@@ -2,11 +2,11 @@
 
 Three skills for killing AI slop. One repo. Pick your weapon.
 
-| Skill | Patterns | Checks | Skills included | Voice |
+| Skill | Patterns | Checks | Skills included | Usage |
 |-------|----------|--------|-----------------|-------|
-| **stop-slop-advanced** | ~25 | None | Design + text (single skill) | Reference |
-| **stop-slop-pro** | 35 | 20 | Design + text (peer skills) | Level 1 direct |
-| **stop-slop-ultimate** | 50 | 35 | Design + text + ponytail | Level 2 direct |
+| **stop-slop-advanced** | ~25 | None | Design + text (single skill) | For quick checks |
+| **stop-slop-pro** | 35 | 20 | Design + text (peer skills) | Perfect for after development/routine checks |
+| **stop-slop-ultimate** | 50 | 35 | Design + text + ponytail | Useful while developing, good when tokens dont matter |
 
 ## Download
 
