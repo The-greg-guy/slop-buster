@@ -34,6 +34,8 @@ cp -r slop-buster/skills/stop-slop-ultimate ~/.claude/skills/
 - **Pro.** A working skill pack with detection. Two peer skills (design slop, text slop). 35 patterns. 20 weighted checks. Level 1 direct voice.
 - **Ultimate.** The full fight. Three peer skills (design slop, text slop, ponytail). 50 patterns. 35 weighted checks. Level 2 direct voice. Adds ponytail for code shape. Adds Tailwind v4, vanilla-extract, Panda CSS, Figma sync tokens.
 
+  For a more detailed comparison, please visit [the comparison page.](/docs/comparison.md)
+
 ## Install
 
 Copy the skill folder into your skills directory:
