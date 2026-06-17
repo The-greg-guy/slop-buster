@@ -80,7 +80,7 @@ Motion: bounce easing, glassmorphism, scroll-jacking, custom cursors, sparkle em
 
 Content: vague headlines, redundant UX writing, fake star testimonials, generic feature descriptions, "Trusted by 10,000+" with no linkable logos.
 
-### Text slop (Pro and Ultimate)
+### Text slop (mainly Pro and Ultimate, partly integrated into advanced)
 
 Phrases: throat-clearing openers, emphasis crutches, business jargon, adverbs, meta-commentary, performative emphasis, vague declaratives. Ultimate adds AI marketing clichés ("harness the power of", "unlock the potential", "at the intersection of", "dawn of a new era").
 
