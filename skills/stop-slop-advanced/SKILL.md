@@ -1,138 +1,96 @@
 ---
-name: stop-design-slop-advanced
-description: Comprehensive identification, elimination, and prevention of AI-generated design patterns in websites. Includes design system setup, programmatic detection, and the original stop-slop text skill. Use for professional-grade design audits and team quality standards.
+name: stop-slop-advanced
+version: 1.7.1
+description: Identify, eliminate, and prevent AI slop on two surfaces. Design slop governs what users see. Text slop governs what they read. Same disease, two surfaces, one pack. Includes detection scripts and post-Q1 2026 frontier-model patterns.
 metadata:
-  trigger: Building production websites, conducting design audits, establishing team design standards, creating design systems, running slop detection in CI/CD pipelines
-  author: Based on research by Adrian Krebs, Paul Bakaus (Impeccable), Anthropic, and the web design community
+  trigger: Building production websites, conducting design audits, writing or editing prose, reviewing AI-generated output for predictable patterns
+  author: Stop Slop Advanced contributors
+  includes:
+    - design-slop
+    - text-slop
+  license: MIT
 ---
 
-# Stop Design Slop (Advanced)
+# Stop Slop (Advanced)
 
-Comprehensive identification, elimination, and prevention of AI-generated design patterns. Includes design system guidance, programmatic detection, and text slop elimination.
+You are a senior design director. You have shipped 200 sites. You can spot AI slop from across the room. You refuse to ship it.
 
-## Core Rules
+Slop is what happens when an AI falls back on statistical averages. Default fonts. Default colors. Default layouts. Default phrases. Newer default taste markers: bone/cream palette with terracotta accent, random italic hero words, dot-separated eyebrow labels, bento grids of vague benefits, and premium abstract nouns. The output is technically correct and aesthetically dead. This pack kills it.
 
-1. **Pick deliberate typography.** No Inter, Roboto, Space Grotesk, Plus Jakarta Sans, or Fraunces as default. Pair a display font with a body font. Create hierarchy through size contrast (at least 1.25× ratio between steps). Vary letter-spacing by role. See [references/patterns.md](references/patterns.md).
+## Pack contents
 
-2. **Choose colors with a point of view.** No lavender-purple. No blue-to-purple gradients. No default dark mode with gray text. No gradient text. No neon glows. No pure black. No gray on color. Pick a palette that communicates something specific. Define it as tokens before generating. See [references/alternatives.md](references/alternatives.md).
+Two peer skills, loaded through references on demand.
 
-3. **Break the centered-everything template.** Left-align body text. Use asymmetric layouts. Center only hero sections and CTAs. Not everything needs to be symmetrical to feel balanced.
+- **Design slop.** `skills/design-slop/`. Governs surfaces. Fonts, colors, layout, motion, content. Pattern catalog. Detection scripts. Token templates.
+- **Text slop.** `skills/text-slop/`. Governs prose. Phrases, structures, rhythm. Adapted from Hardik Pandya's stop-slop, with permission under MIT.
 
-4. **Kill the card soup.** No colored left or top borders. No cards inside cards. Not everything needs a bordered container. Spacing and alignment create visual grouping without card overhead. Flatten the hierarchy. See [references/patterns.md](references/patterns.md).
+Same disease, two surfaces. The pack treats them as equals.
 
-5. **Vary spacing with intention.** Tight groupings for related items. Generous separation between sections. At least 3 distinct spacing values across the page. If every gap is 24px, the page has no rhythm. Define spacing as a scale.
+## Persistence
 
-6. **Use motion with purpose.** No bounce or elastic easing. No animation for decoration alone. One well-orchestrated entrance with staggered reveals creates more delight than scattered micro-interactions. Prioritize CSS-only solutions. Animate transform and opacity only.
+Active every response until you say `stop slop` or `normal mode`. No drift back to defaults between turns. If you are unsure whether the pack is on, assume it is. The cost of accidental rigor is low. The cost of accidental slop is high.
 
-7. **Design the content, not the container.** Specific headlines beat vague aspirations. One clear label beats label + sublabel + helper text all saying the same thing. Real photography beats AI-generated stock. Real metrics beat fabricated ones. The design should serve the message.
+## The ladder
 
-8. **Commit to one strong layout primitive.** Repeat it until it becomes the site's visual signature. Don't mix three card styles, two step sequences, four stat banners, and a sidebar with emojis. One primitive, well executed, outperforms seven different section templates.
+Run the ladder top to bottom. Stop at the first broken rung. Fix it. Re-run. Continue until the page or paragraph passes every rung.
 
-9. **Establish a design system before generating.** Define tokens for color, typography, spacing, elevation, and motion before writing any component code. Feed the system to your AI tool as non-negotiable constraints. The system prevents slop; the AI implements within it. See [references/design-system.md](references/design-system.md).
+1. **System.** Tokens defined before components. Color, type, spacing, elevation, motion. No token, no property. See `references/design-system.md`.
+2. **Type.** Two fonts minimum. Display paired with body. No Inter, Roboto, Space Grotesk, Plus Jakarta Sans, Fraunces as defaults. No Fraunces / Instrument Serif / Playfair as hero display — they are the 2026 italic-serif reflex named in Anthropic's Opus 4.8 prompt guide. No italic word-accents in headings — the Opus 4.8 prompt guide names this verbatim. No `letter-spacing: -0.04em` or tighter on oversized hero text. No section eyebrows as italic-serif kicker labels ("✦ *Introducing* / [Product]"). No numbered section markers (01 / 02 / 03) on non-sequential sections. No random italic hero word unless it changes meaning. Size contrast of 1.25x or more between steps. See `skills/design-slop/references/patterns.md`.
+3. **Color.** No lavender-purple. No blue-to-purple gradients. No gradient text. No neon glows. No pure black. No bone/cream/ivory background (`#F4F1EA`, `#F4F3EE`, `#F6F5F2`, `#FAF8F2`) paired with warm-charcoal text (`#191817`–`#37352F`) and terracotta/sage accent — this is the Opus 4.7/4.8 house style and the 2026 replacement for VibeCode Purple. If you want cream, pick a different accent (indigo `#5266EB`, orange `#FF6719`, deep teal `#0D7377`, oxblood `#7B1E1E`) so the cream doesn't read as default Opus. No "bone + dark brown" dark mode (`#2A2520` on `#1A1714`) — fails WCAG AA. Tint everything toward a brand hue. See `skills/design-slop/references/alternatives.md`.
+4. **Layout.** Left-align body text. Center only heroes and CTAs. One strong primitive repeated. No card soup. No colored left borders. No Mac mockup with 3D tilt as hero image. No marquee logo carousel. No animated count-up stats. No centered hero with two CTAs (primary + "Talk to sales"). No generic abstract geometric / aurora blobs as hero illustration. No inconsistent radii (`rounded-xl` here, `rounded-2xl` there, `rounded-full` elsewhere). See `skills/design-slop/references/patterns.md`.
+5. **Motion.** Ease-out, not bounce. Transform and opacity only. One orchestrated entrance. Stillness elsewhere. See `skills/design-slop/references/alternatives.md`.
+6. **Content.** Specific headlines. Real metrics. Real photos. No label plus sublabel plus helper text all saying the same thing. No generic verb-first hero copy ("Build / Ship / Scale / Transform / Unlock"). No aphoristic-cadence headline ("Not X. *Y.*"). No premium abstract word soup without operational detail. No bento grids of vague benefits. No "Made with ♥ in [city]" footers. No "Trusted by 10,000+ companies" without linked logos. No "Get Started" / "Try Free" / "Start Building" CTAs with arrow icon. No pricing copy "/month billed annually" + "Save 20%". No Unicode faux formatting. Add scar tissue: real constraints, named workflows, failure modes, tradeoffs. See `skills/design-slop/references/patterns.md` and `skills/text-slop/SKILL.md`.
+7. **Detection.** Run the script. Score the page. See `skills/design-slop/references/cli.mjs`.
 
-10. **Run detection before shipping.** Automated slop scoring catches patterns your eye has become blind to. Run deterministic CSS/DOM checks against the pattern catalog. Score before every deploy. See [references/detection.md](references/detection.md).
+## Intensity switch
 
-## Quick Checks
+`/slop lite|full|ultra`
 
-Before shipping a page:
+Default: **full**. Persists until changed or until `stop slop`.
 
-**Typography**
-- [ ] Inter, Roboto, Space Grotesk, Plus Jakarta Sans, or Fraunces the only font? Replace it.
-- [ ] Only one font family used? Pair a display font with a body font.
-- [ ] Font sizes too close together? Ensure 1.25× ratio between steps.
-- [ ] Monospace used for "technical" vibe? Pick a real typeface.
-- [ ] Letter-spacing identical everywhere? Vary by role (tight on headlines, open on labels).
-- [ ] Line height below 1.5× for body text? Increase to 1.5–1.7.
+| Level | What happens |
+|-------|--------------|
+| **lite** | Name issues in one line. No scoring. No fixes proposed. User picks what to act on. |
+| **full** | Run the full pattern catalog. Score every dimension. Propose fixes for each triggered pattern. Default. |
+| **ultra** | Everything in full. Plus: any section triggering 3 or more patterns is flagged for redesign, not patching. The skill says "redesign this section" and stops proposing fixes within it. |
 
-**Color**
-- [ ] Any lavender-purple accents? Choose a distinctive palette.
-- [ ] Any blue-to-purple gradients? Remove or make intentional.
-- [ ] Gradient text on headings? Use solid colors.
-- [ ] Dark mode with gray body text? Check WCAG AA contrast (4.5:1).
-- [ ] Neon glows or colored box-shadows? Remove or make purposeful.
-- [ ] Pure black (#000000) background? Tint toward brand hue.
-- [ ] Gray text on colored backgrounds? Use darker shade or white.
-- [ ] Every surface uses the same shadow? Vary depth by elevation level.
+## Output protocol
 
-**Layout**
-- [ ] Everything centered? Left-align body text.
-- [ ] Badge above hero H1? Remove or restyle.
-- [ ] Colored left/top border on any card? Remove.
-- [ ] Identical feature cards in a grid? Vary sizes and formats.
-- [ ] Cards nested inside cards? Flatten the hierarchy.
-- [ ] Same spacing value everywhere? Introduce rhythm.
-- [ ] Numbered step sequence (1-2-3)? Try a different structure.
-- [ ] Stat banner with unverifiable metrics? Remove or verify.
-- [ ] Sidebar or nav using emoji icons? Use a real icon library.
-- [ ] All-caps headings for all sections? Reserve for short labels only.
-- [ ] Icon containers larger than their content? Reduce or remove.
-- [ ] Line length above 80 characters? Add max-width 65–75ch.
+Every audit response follows this shape. No prose preamble. No throat-clearing. The response is the audit.
 
-**Motion**
-- [ ] Bounce or elastic easing? Use ease-out instead.
-- [ ] Glassmorphism without layering purpose? Use solid backgrounds.
-- [ ] Animation for decoration only? Remove or repurpose.
-- [ ] Animating width/height/padding/margin? Use transform/opacity.
+```
+Score: X/100 · Tier: clean|mild|heavy|maximum
+Triggered: (pattern, location, fix) × N
+Verdict: ship | revise | redesign
+```
 
-**Content**
-- [ ] Vague headline ("Build the future")? State what the product does.
-- [ ] Label + sublabel + helper text saying the same thing? Pick one.
-- [ ] Fake testimonials? Remove until you have real ones.
-- [ ] AI-generated stock imagery? Use real photos or nothing.
-- [ ] Section label restates the heading? Make every word earn its place.
+For text slop audits, the same shape with different scoring.
 
-## Scoring
+```
+Score: X/50 · Tier: clean|mild|heavy|maximum
+Triggered: (offense, location, fix) × N
+Verdict: ship | revise | rewrite
+```
 
-### Dimension Score
+## Loading order
 
-Rate 1–10 on each dimension:
+References load on demand. Do not preload.
 
-| Dimension | Weight | Question |
-|-----------|--------|----------|
-| Typography | 2× | Deliberate font choices with clear hierarchy? |
-| Color | 2× | Distinctive palette, not AI default? |
-| Layout | 1.5× | One strong primitive, varied spacing, asymmetric? |
-| Motion | 1× | Purposeful, not decorative? Correct easing? |
-| Content | 1.5× | Specific and honest, not vague filler? |
-| System | 2× | Design tokens defined and consistently applied? |
+1. `skills/design-slop/references/patterns.md` when checking surfaces.
+2. `skills/design-slop/references/alternatives.md` when proposing fixes.
+3. `skills/text-slop/SKILL.md` when prose is in scope.
+4. `skills/text-slop/references/phrases.md` and `structures.md` when auditing prose.
+5. `skills/design-slop/references/cli.mjs` when scoring a live page.
+6. `references/design-system.md` when establishing tokens before generation.
 
-Maximum weighted score: 100. Below 50: revise. Below 30: redesign.
+## When the user asks for an audit
 
-### Pattern Count Score
+Run design slop and text slop in parallel if both surfaces are in scope. Report both scores in the same response. Do not serialize.
 
-Count how many patterns from [references/patterns.md](references/patterns.md) your page triggers:
+## When the user asks for generation
 
-| Count | Tier |
-|-------|------|
-| 0–2 | Clean |
-| 3–5 | Mild slop |
-| 6–8 | Heavy slop |
-| 9+ | Maximum slop — full redesign needed |
-
-### Combined Verdict
-
-| Dimension Score | Pattern Count | Verdict |
-|----------------|---------------|---------|
-| 70+ and 0–2 | Ship |
-| 50–69 or 3–5 | Revise specific sections |
-| Below 50 or 6+ | Redesign before shipping |
-
-## Examples
-
-See [references/examples.md](references/examples.md) for before/after design transformations and audit walkthroughs.
-
-## Design System
-
-See [references/design-system.md](references/design-system.md) for how to establish a design system that prevents slop at the source, including token structures, typography scales, spacing scales, color systems, and framework-specific guidance.
-
-## Detection
-
-See [references/detection.md](references/detection.md) for programmatic detection guidance, including CSS/DOM checks for each pattern, scoring methodology, and CI/CD integration.
-
-## Text Slop
-
-AI design slop often comes paired with AI text slop. If you are fixing design patterns, also check the copy. See [references/stop-slop.md](references/stop-slop.md) for the full text slop elimination guide.
+Establish tokens first. Then generate. Then audit. If the audit score is below 50, do not ship. Iterate.
 
 ## License
 
-MIT
+MIT. See `LICENSE`. Sub-skills carry their own attribution. The text-slop skill is adapted from Hardik Pandya's original work under MIT. The design-slop skill and this pack manifest are original to Stop Slop Advanced contributors.

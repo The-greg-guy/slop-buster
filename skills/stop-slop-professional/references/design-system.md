@@ -161,7 +161,7 @@ Rules:
 - Animate transform and opacity only.
 - One orchestrated moment per page, not constant motion.
 
-## Tailwind Configuration
+## Tailwind v3 Configuration
 
 ```js
 module.exports = {
@@ -224,6 +224,167 @@ module.exports = {
 }
 ```
 
+## Tailwind v4 Configuration
+
+Tailwind v4 uses CSS-first configuration. Define tokens in your main CSS file using `@theme`.
+
+```css
+@import "tailwindcss";
+
+@theme {
+  /* Colors */
+  --color-surface: #FFFFFF;
+  --color-surface-dark: #292524;
+  --color-bg: #F5F0EB;
+  --color-bg-dark: #1C1917;
+  --color-text: #1C1917;
+  --color-text-muted: #78716C;
+  --color-text-dark: #E7E5E4;
+  --color-accent: #C4493C;
+  --color-accent-hover: #A63A2F;
+  --color-border: #E7E5E4;
+
+  /* Fonts */
+  --font-display: 'Canela', 'Georgia', serif;
+  --font-body: 'Graphik', 'system-ui', sans-serif;
+  --font-mono: 'Geist Mono', 'Menlo', monospace;
+
+  /* Type scale */
+  --text-xs: 0.64rem;
+  --text-xs--line-height: 1.5;
+  --text-xs--letter-spacing: 0.08em;
+  --text-sm: 0.8rem;
+  --text-sm--line-height: 1.5;
+  --text-base: 1rem;
+  --text-base--line-height: 1.6;
+  --text-lg: 1.25rem;
+  --text-lg--line-height: 1.5;
+  --text-xl: 1.563rem;
+  --text-xl--line-height: 1.3;
+  --text-xl--letter-spacing: -0.01em;
+  --text-2xl: 1.953rem;
+  --text-2xl--line-height: 1.2;
+  --text-2xl--letter-spacing: -0.01em;
+  --text-3xl: 2.441rem;
+  --text-3xl--line-height: 1.1;
+  --text-3xl--letter-spacing: -0.02em;
+  --text-4xl: 3.052rem;
+  --text-4xl--line-height: 1.1;
+  --text-4xl--letter-spacing: -0.02em;
+  --text-5xl: 3.815rem;
+  --text-5xl--line-height: 1;
+  --text-5xl--letter-spacing: -0.03em;
+
+  /* Spacing */
+  --spacing-18: 4.5rem;
+  --spacing-22: 5.5rem;
+  --spacing-26: 6.5rem;
+
+  /* Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.08);
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+```
+
+## CSS-in-JS Integration
+
+### vanilla-extract
+
+```ts
+// styles.css.ts
+import { createTheme, style } from '@vanilla-extract/css';
+
+export const [themeClass, vars] = createTheme({
+  color: {
+    bg: '#F5F0EB',
+    surface: '#FFFFFF',
+    text: '#1C1917',
+    accent: '#C4493C',
+    border: '#E7E5E4',
+  },
+  font: {
+    display: 'Canela, Georgia, serif',
+    body: 'Graphik, system-ui, sans-serif',
+    mono: 'Geist Mono, Menlo, monospace',
+  },
+  space: {
+    1: '0.25rem',
+    2: '0.5rem',
+    4: '1rem',
+    8: '2rem',
+    16: '4rem',
+  },
+});
+```
+
+### Panda CSS
+
+```ts
+// theme.ts
+import { defineTheme } from '@pandacss/dev';
+
+export const theme = defineTheme({
+  tokens: {
+    colors: {
+      bg: { value: '#F5F0EB' },
+      surface: { value: '#FFFFFF' },
+      text: { value: '#1C1917' },
+      accent: { value: '#C4493C' },
+      border: { value: '#E7E5E4' },
+    },
+    fonts: {
+      display: { value: 'Canela, Georgia, serif' },
+      body: { value: 'Graphik, system-ui, sans-serif' },
+      mono: { value: 'Geist Mono, Menlo, monospace' },
+    },
+    spacing: {
+      1: { value: '0.25rem' },
+      4: { value: '1rem' },
+      8: { value: '2rem' },
+      16: { value: '4rem' },
+    },
+  },
+});
+```
+
+## Figma Sync Tokens
+
+Use the W3C Design Tokens Format Module for Figma sync via Tokens Studio or Style Dictionary.
+
+```json
+{
+  "color": {
+    "bg": { "$value": "#F5F0EB", "$type": "color" },
+    "surface": { "$value": "#FFFFFF", "$type": "color" },
+    "text": { "$value": "#1C1917", "$type": "color" },
+    "accent": { "$value": "#C4493C", "$type": "color" },
+    "border": { "$value": "#E7E5E4", "$type": "color" }
+  },
+  "font": {
+    "display": { "$value": "Canela, Georgia, serif", "$type": "fontFamily" },
+    "body": { "$value": "Graphik, system-ui, sans-serif", "$type": "fontFamily" },
+    "mono": { "$value": "Geist Mono, Menlo, monospace", "$type": "fontFamily" }
+  },
+  "size": {
+    "xs": { "$value": "0.64rem", "$type": "dimension" },
+    "sm": { "$value": "0.8rem", "$type": "dimension" },
+    "base": { "$value": "1rem", "$type": "dimension" },
+    "lg": { "$value": "1.25rem", "$type": "dimension" }
+  }
+}
+```
+
 ## shadcn/ui Customization
 
 shadcn/ui is designed to be copy-pasted by AI agents, which means its defaults leak through on every generated site. To use shadcn without creating slop:
@@ -245,6 +406,23 @@ shadcn/ui is designed to be copy-pasted by AI agents, which means its defaults l
   --border: 30 10% 88%;
   --radius: 0.375rem;
 }
+```
+
+## Component-Level Token Overrides
+
+Some components need token overrides. Define them scoped, not global.
+
+```css
+/* Pricing card uses a different surface */
+.pricing-card {
+  --color-surface: var(--color-surface-raised);
+  --shadow: var(--shadow-lg);
+}
+
+/* Status indicator uses semantic colors */
+.status--success { --color-accent: var(--color-success); }
+.status--warning { --color-accent: var(--color-warning); }
+.status--error { --color-accent: var(--color-error); }
 ```
 
 ## Pre-Generation Checklist

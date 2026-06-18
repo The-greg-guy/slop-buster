@@ -17,17 +17,18 @@ Open an issue with:
 If you see an AI slop pattern that is not in the catalog:
 
 1. Check the relevant `patterns.md` to confirm it is missing:
-   - `skills/stop-slop-advanced/references/patterns.md`
-   - `skills/stop-slop-pro/skills/design-slop/references/patterns.md`
-   - `skills/stop-slop-ultimate/skills/design-slop/references/patterns.md`
+   - `skills/stop-slop-lite/references/patterns.md`
+   - `skills/stop-slop-basic/references/patterns.md`
+   - `skills/stop-slop-advanced/skills/design-slop/references/patterns.md`
+   - `skills/stop-slop-professional/skills/design-slop/references/patterns.md`
 2. Open an issue with the pattern name, a description, a detection hint, and a fix.
-3. If you can, add a check to the relevant `checks.mjs` and open a pull request. Pro and Ultimate only. Advanced has no detection scripts.
+3. If you can, add a check to the relevant `checks.mjs` and open a pull request. Advanced and Professional only. Lite and Basic have no detection scripts.
 
 ### Improving detection
 
 The detection scripts live in:
-- `skills/stop-slop-pro/skills/design-slop/references/`
-- `skills/stop-slop-ultimate/skills/design-slop/references/`
+- `skills/stop-slop-advanced/skills/design-slop/references/`
+- `skills/stop-slop-professional/skills/design-slop/references/`
 
 There are two modes:
 - `detection.mjs` uses Playwright to check live URLs.
@@ -39,7 +40,7 @@ Each check in `checks.mjs` handles both modes. When adding a check:
 2. Implement `run(ctx)` for both URL and file modes.
 3. Test with `node cli.mjs detect-files <test-file>`.
 4. Verify the check does not false-positive on clean pages.
-5. If the check belongs in both Pro and Ultimate, add it to both `checks.mjs` files.
+5. If the check belongs in both Advanced and Professional, add it to both `checks.mjs` files.
 
 ### Text slop compliance
 
@@ -80,10 +81,10 @@ npm install playwright
 npx playwright install chromium
 
 # Test detection on a file:
-node skills/stop-slop-ultimate/skills/design-slop/references/cli.mjs detect-files ./test-page.html
+node skills/stop-slop-professional/skills/design-slop/references/cli.mjs detect-files ./test-page.html
 
 # List all checks:
-node skills/stop-slop-ultimate/skills/design-slop/references/cli.mjs list
+node skills/stop-slop-professional/skills/design-slop/references/cli.mjs list
 
 # Build release zips locally:
 chmod +x scripts/build-releases.sh
