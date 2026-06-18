@@ -3,644 +3,1930 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Stop Slop — Kill AI design slop at the source</title>
-<meta name="description" content="A skill pack that catches the patterns your eye has gone blind to. Inter as the default font. Lavender-purple accents. Card soup. Cut them.">
-<meta name="author" content="Stop Slop contributors">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<title>Slop Buster — Post-Q1 2026 AI Design Slop Detector</title>
+<meta name="description" content="Detect the bone-palette and italic-word-accents patterns named in Anthropic's Opus 4.8 prompt guide, plus 20+ other post-2026 AI design tells. Three skill levels. Live detector. Model-specific fingerprints.">
 <style>
-:root {
-  --color-bg: #F5F0EB;
-  --color-surface: #FFFFFF;
-  --color-text: #1C1917;
-  --color-text-secondary: #57534E;
-  --color-text-muted: #78716C;
-  --color-accent: #C4493C;
-  --color-accent-hover: #A63A2F;
-  --color-border: #E7E5E4;
-  --color-border-strong: #D6D3D1;
-  --font-display: 'Fraunces', 'Georgia', serif;
-  --font-body: 'Inter', 'system-ui', sans-serif;
-  --font-mono: 'JetBrains Mono', 'Menlo', monospace;
-  --text-xs: 0.64rem;
-  --text-sm: 0.8rem;
-  --text-base: 1rem;
-  --text-lg: 1.25rem;
-  --text-xl: 1.563rem;
-  --text-2xl: 1.953rem;
-  --text-3xl: 2.441rem;
-  --text-4xl: 3.052rem;
-  --text-5xl: 3.815rem;
-  --space-1: 0.25rem;
-  --space-2: 0.5rem;
-  --space-3: 0.75rem;
-  --space-4: 1rem;
-  --space-5: 1.5rem;
-  --space-6: 2rem;
-  --space-8: 3rem;
-  --space-10: 4rem;
-  --space-12: 5rem;
-  --space-16: 8rem;
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-  --duration-normal: 300ms;
-  --duration-slow: 500ms;
-}
+/* ============================================================
+   SLOP BUSTER DEMO — STANDALONE HTML VERSION
+   ------------------------------------------------------------
+   Deliberate design choices (anti-slop):
+   - Background: pure #FFFFFF (NOT bone #F4F1EA family)
+   - Text: pure #0A0A0A (NOT warm charcoal #191817 family)
+   - Accent: emerald #10B981 (NOT terracotta, NOT indigo, NOT purple)
+   - Typography: system-ui + Georgia serif fallback (NOT Inter, NOT Fraunces, NOT Playfair)
+   - Layout: left-aligned body text, asymmetric layouts, single CTA per section
+   - Headlines: NO italic word-accents, NO letter-spacing tighter than -0.02em
+   - No emoji icons in nav. No "Trusted by 10,000+" claims. No "Made with ♥".
+   ============================================================ */
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
 body {
-  font-family: var(--font-body);
-  font-size: var(--text-base);
-  line-height: 1.6;
-  color: var(--color-text);
-  background: var(--color-bg);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  background: #FFFFFF;
+  color: #0A0A0A;
+  line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
-section {
-  padding: var(--space-12) 0;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding-left: var(--space-6);
-  padding-right: var(--space-6);
+.code-font, code, pre, .mono {
+  font-family: "SF Mono", "Monaco", "Inconsolata", "Fira Code", monospace;
 }
+.serif { font-family: Georgia, "Times New Roman", serif; }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; }
+textarea { font-family: inherit; }
 
-nav {
+.container { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
+
+/* ===== HEADER ===== */
+.site-header {
+  border-bottom: 1px solid #E5E5E5;
+  padding: 16px 32px;
   display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  padding: var(--space-5) var(--space-6);
-  max-width: 1200px;
-  margin: 0 auto;
-  border-bottom: 1px solid var(--color-border);
-}
-nav .logo {
-  font-family: var(--font-display);
-  font-size: var(--text-lg);
-  font-weight: 600;
-  letter-spacing: -0.01em;
-}
-nav .logo span { color: var(--color-accent); }
-nav ul {
-  list-style: none;
-  display: flex;
-  gap: var(--space-6);
-}
-nav a {
-  color: var(--color-text-secondary);
-  text-decoration: none;
-  font-size: var(--text-sm);
-  transition: color var(--duration-normal) var(--ease-out-expo);
-}
-nav a:hover { color: var(--color-accent); }
-
-.hero {
-  display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: var(--space-10);
-  padding-top: var(--space-16);
-  padding-bottom: var(--space-16);
   align-items: center;
+  justify-content: space-between;
+  font-family: "SF Mono", "Monaco", monospace;
+  font-size: 13px;
+  color: #525252;
+  /* position: sticky removed — was a useless sticky header with only in-page anchors */
+  background: #FFFFFF;
+}
+.site-header .logo-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background: #10B981;
+  border-radius: 2px;
+  margin-right: 12px;
+  vertical-align: middle;
+}
+.site-header .brand { font-weight: 600; color: #0A0A0A; }
+.site-header .nav { display: flex; gap: 24px; }
+.site-header .nav a { color: #525252; transition: color 0.15s; }
+.site-header .nav a:hover { color: #0A0A0A; }
+.site-header .nav a.cta-link { color: #10B981; font-weight: 500; }
+
+/* ===== HERO ===== */
+.hero {
+  padding: 96px 32px 80px;
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+.kicker {
+  font-family: "SF Mono", monospace;
+  font-size: 13px;
+  color: #10B981;
+  margin-bottom: 24px;
+  letter-spacing: 0.02em;
 }
 .hero h1 {
-  font-family: var(--font-display);
-  font-size: var(--text-5xl);
-  font-weight: 500;
-  line-height: 1;
-  letter-spacing: -0.03em;
-  margin-bottom: var(--space-5);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 56px;
+  line-height: 1.05;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #0A0A0A;
+  margin: 0 0 24px 0;
 }
-.hero h1 em {
-  font-style: italic;
-  color: var(--color-accent);
-  font-weight: 400;
+.hero p.lead {
+  font-size: 18px;
+  line-height: 1.6;
+  color: #525252;
+  margin: 0 0 32px 0;
+  max-width: 520px;
 }
-.hero .subhead {
-  font-size: var(--text-lg);
-  color: var(--color-text-secondary);
-  line-height: 1.5;
-  max-width: 38ch;
-  margin-bottom: var(--space-6);
+.hero .lead code {
+  font-family: "SF Mono", monospace;
+  font-size: 14px;
+  background: #FAFAFA;
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: #0A0A0A;
+  border: 1px solid #E5E5E5;
 }
-.hero .cta-row {
-  display: flex;
-  gap: var(--space-3);
-  align-items: center;
-}
+.hero-ctas { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
 .btn-primary {
   display: inline-block;
-  background: var(--color-accent);
-  color: var(--color-surface);
-  padding: var(--space-3) var(--space-5);
-  border-radius: var(--radius-md);
-  text-decoration: none;
+  background: #0A0A0A;
+  color: #FFFFFF;
+  padding: 14px 24px;
+  border-radius: 4px;
   font-weight: 500;
-  font-size: var(--text-sm);
-  transition: background var(--duration-normal) var(--ease-out-expo);
+  font-size: 15px;
+  border: none;
+  transition: background 0.15s;
 }
-.btn-primary:hover { background: var(--color-accent-hover); }
-.btn-secondary {
-  color: var(--color-text-secondary);
-  text-decoration: none;
-  font-size: var(--text-sm);
+.btn-primary:hover { background: #262626; }
+.btn-link {
+  display: inline-block;
+  color: #0A0A0A;
+  padding: 14px 0;
   font-weight: 500;
-  border-bottom: 1px solid var(--color-border-strong);
-  padding-bottom: 2px;
-  transition: color var(--duration-normal) var(--ease-out-expo);
+  font-size: 15px;
+  text-decoration: underline;
+  text-decoration-color: #10B981;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
 }
-.btn-secondary:hover { color: var(--color-accent); }
+.hero-stats {
+  margin-top: 48px;
+  display: flex;
+  gap: 48px;
+  font-family: "SF Mono", monospace;
+  font-size: 13px;
+  color: #737373;
+}
+.hero-stats .num { color: #0A0A0A; font-size: 32px; font-weight: 600; }
 
-.terminal {
-  background: #1C1917;
-  border-radius: var(--radius-lg);
-  padding: var(--space-5);
-  font-family: var(--font-mono);
-  font-size: var(--text-sm);
-  line-height: 1.7;
-  color: #D4D4D8;
-  overflow-x: auto;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+/* ===== Live slop demo (right side of hero) ===== */
+.slop-demo-frame {
+  border: 1px solid #E5E5E5;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #F4F1EA;
+  padding: 40px 32px;
+  text-align: center;
+  font-family: -apple-system, "Segoe UI", sans-serif;
+  color: #37352F;
+  position: relative;
 }
-.terminal .prompt { color: #78716C; }
-.terminal .bad { color: #FCA5A5; }
-.terminal .accent { color: #E85D4A; }
-.terminal .muted { color: #78716C; }
+.slop-demo-frame .eyebrow {
+  font-family: Georgia, serif;
+  font-style: italic;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 13px;
+  color: #C96442;
+  margin-bottom: 16px;
+}
+.slop-demo-frame h2 {
+  font-family: Georgia, serif;
+  font-size: 36px;
+  font-style: italic;
+  letter-spacing: -0.04em;
+  margin: 0 0 16px 0;
+  line-height: 1.1;
+  color: #37352F;
+}
+.slop-demo-frame h2 em { font-style: italic; color: #C96442; }
+.slop-demo-frame p { font-size: 14px; color: #5A5548; margin: 0 0 24px 0; }
+.slop-demo-frame p em { color: #C96442; }
+.slop-demo-frame .cta-row {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.slop-demo-frame .cta-primary {
+  background: #C96442;
+  color: #F4F1EA;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 13px;
+}
+.slop-demo-frame .cta-primary em { color: #F4F1EA; }
+.slop-demo-frame .cta-secondary {
+  border: 1px solid #C96442;
+  color: #C96442;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 13px;
+}
+.annotation {
+  position: absolute;
+  background: #DC2626;
+  color: #FFFFFF;
+  font-family: "SF Mono", monospace;
+  font-size: 13px;
+  padding: 2px 6px;
+  border-radius: 2px;
+  pointer-events: none;
+  z-index: 10;
+}
+.demo-label {
+  font-family: "SF Mono", monospace;
+  font-size: 13px;
+  color: #A3A3A3;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+}
+.demo-label .slop-tag { color: #DC2626; }
+.demo-caption {
+  margin-top: 12px;
+  font-family: "SF Mono", monospace;
+  font-size: 13px;
+  color: #737373;
+  line-height: 1.5;
+}
 
-.section-heading {
-  font-family: var(--font-display);
-  font-size: var(--text-3xl);
-  font-weight: 500;
+/* ===== Section base ===== */
+section { padding: 80px 32px; }
+section.alt { background: #FAFAFA; border-top: 1px solid #E5E5E5; border-bottom: 1px solid #E5E5E5; }
+.section-header { max-width: 1280px; margin: 0 auto 48px; }
+.section-header h2 {
+  font-family: Georgia, serif;
+  font-size: 40px;
+  font-weight: 700;
   letter-spacing: -0.02em;
-  margin-bottom: var(--space-2);
+  color: #0A0A0A;
+  margin: 0 0 16px 0;
   line-height: 1.1;
 }
-.section-label {
-  font-size: var(--text-xs);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--color-text-muted);
-  font-weight: 500;
-  margin-bottom: var(--space-3);
+.section-header p {
+  font-size: 17px;
+  line-height: 1.6;
+  color: #525252;
+  margin: 0;
+  max-width: 680px;
 }
 
-.ladder {
+/* ===== Anchor patterns grid ===== */
+.anchor-grid {
+  max-width: 1280px;
+  margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--space-10);
-  margin-top: var(--space-8);
+  gap: 32px;
 }
-.ladder ol {
-  list-style: none;
-  counter-reset: rung;
+.anchor-card {
+  background: #FFFFFF;
+  border: 1px solid #E5E5E5;
+  border-radius: 4px;
+  padding: 32px;
 }
-.ladder li {
-  counter-increment: rung;
-  padding: var(--space-5) 0;
-  border-bottom: 1px solid var(--color-border);
-  display: grid;
-  grid-template-columns: 3rem 1fr;
-  gap: var(--space-4);
-  align-items: baseline;
+.anchor-card .tag {
+  font-family: "SF Mono", monospace;
+  font-size: 13px;
+  color: #DC2626;
+  margin-bottom: 12px;
 }
-.ladder li::before {
-  content: counter(rung);
-  font-family: var(--font-display);
-  font-size: var(--text-2xl);
-  font-weight: 400;
-  color: var(--color-accent);
-  font-style: italic;
+.anchor-card h3 {
+  font-family: Georgia, serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: #0A0A0A;
+  margin: 0 0 16px 0;
 }
-.ladder li h3 {
-  font-family: var(--font-display);
-  font-size: var(--text-xl);
-  font-weight: 500;
-  letter-spacing: -0.01em;
-  margin-bottom: var(--space-2);
+.swatch-row { display: flex; gap: 8px; margin-bottom: 20px; }
+.swatch { text-align: center; flex: 1; }
+.swatch .chip {
+  height: 40px;
+  border-radius: 2px;
+  border: 1px solid #E5E5E5;
 }
-.ladder li p {
-  color: var(--color-text-secondary);
-  font-size: var(--text-base);
+.swatch .hex { font-family: "SF Mono", monospace; font-size: 13px; color: #737373; margin-top: 4px; }
+.swatch .label { font-family: "SF Mono", monospace; font-size: 13px; color: #A3A3A3; }
+.italic-demo {
+  background: #FAFAFA;
+  padding: 20px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  font-family: Georgia, serif;
+  color: #37352F;
+}
+.italic-demo .headline { font-size: 22px; line-height: 1.3; margin-bottom: 8px; }
+.italic-demo .headline em { color: #C96442; }
+.italic-demo .subhead { font-size: 14px; color: #5A5548; }
+.italic-demo .subhead em { color: #C96442; }
+.anchor-card p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #525252;
+  margin: 0 0 16px 0;
+}
+.anchor-card .fix {
+  background: #FAFAFA;
+  /* border removed — was: border-left: 2px solid #10B981; */
+  padding: 12px 16px;
+  font-family: "SF Mono", monospace;
+  font-size: 13px;
+  color: #0A0A0A;
   line-height: 1.5;
 }
+.anchor-card .fix code { color: #10B981; }
 
-.comparison {
+/* ===== Quote box ===== */
+.quote-box {
+  max-width: 1280px;
+  margin: 48px auto 0;
+  padding: 32px;
+  background: #FFFFFF;
+  border: 1px solid #E5E5E5;
+  border-radius: 4px;
+}
+.quote-box .source {
+  font-family: "SF Mono", monospace;
+  font-size: 13px;
+  color: #10B981;
+  margin-bottom: 12px;
+  word-break: break-all;
+}
+.quote-box blockquote {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.6;
+  color: #0A0A0A;
+  font-style: normal;
+}
+
+/* ===== Detector ===== */
+.detector { max-width: 1280px; margin: 0 auto; }
+.preset-row { margin-bottom: 24px; }
+.preset-row .label {
+  font-family: "SF Mono", monospace;
+  font-size: 13px;
+  color: #737373;
+  margin-bottom: 8px;
+}
+.preset-buttons { display: flex; gap: 8px; flex-wrap: wrap; }
+.preset-btn {
+  padding: 8px 16px;
+  background: #FFFFFF;
+  color: #0A0A0A;
+  border: 1px solid #E5E5E5;
+  border-radius: 4px;
+  font-size: 13px;
+}
+.preset-btn.active { background: #0A0A0A; color: #FFFFFF; }
+.preset-desc { margin-top: 8px; font-size: 13px; color: #525252; }
+
+.input-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--space-6);
-  margin-top: var(--space-8);
+  gap: 16px;
 }
-.comparison .panel {
-  padding: var(--space-6);
-  border-radius: var(--radius-lg);
+.input-label {
+  font-family: "SF Mono", monospace;
+  font-size: 13px;
+  color: #737373;
+  margin-bottom: 8px;
 }
-.comparison .before {
-  background: #F0EEEA;
-  border: 1px solid var(--color-border);
+textarea.code-input {
+  width: 100%;
+  min-height: 280px;
+  padding: 12px;
+  border: 1px solid #E5E5E5;
+  border-radius: 4px;
+  font-family: "SF Mono", monospace;
+  font-size: 13px;
+  background: #FAFAFA;
+  color: #0A0A0A;
+  resize: vertical;
 }
-.comparison .after {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
+.run-btn {
+  margin-top: 16px;
+  padding: 12px 24px;
+  background: #10B981;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 14px;
 }
-.comparison .panel-label {
-  font-size: var(--text-xs);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--color-text-muted);
-  margin-bottom: var(--space-4);
-  font-weight: 500;
-}
-.comparison .before .panel-label { color: var(--color-accent); }
-.comparison .after .panel-label { color: #3D8B5E; }
-.comparison .panel h4 {
-  font-family: var(--font-display);
-  font-size: var(--text-lg);
-  font-weight: 500;
-  margin-bottom: var(--space-3);
-  line-height: 1.2;
-}
-.comparison .panel p {
-  font-size: var(--text-sm);
-  line-height: 1.5;
-  color: var(--color-text-secondary);
-}
+.run-btn:hover { background: #059669; }
 
-.patterns-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-6) var(--space-10);
-  margin-top: var(--space-8);
+.results {
+  margin-top: 32px;
+  padding: 32px;
+  background: #FAFAFA;
+  border: 1px solid #E5E5E5;
+  border-radius: 4px;
 }
-.pattern-group h3 {
-  font-family: var(--font-display);
-  font-size: var(--text-lg);
-  font-weight: 500;
-  margin-bottom: var(--space-3);
-  color: var(--color-text);
-}
-.pattern-group ul { list-style: none; }
-.pattern-group li {
-  padding: var(--space-2) 0;
-  font-size: var(--text-sm);
-  color: var(--color-text-secondary);
-  border-bottom: 1px dotted var(--color-border);
+.results-header {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
-}
-.pattern-group li .count {
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  color: var(--color-text-muted);
-}
-
-.detection-output {
-  background: #1C1917;
-  border-radius: var(--radius-lg);
-  padding: var(--space-6);
-  font-family: var(--font-mono);
-  font-size: var(--text-sm);
-  line-height: 1.7;
-  color: #D4D4D8;
-  margin-top: var(--space-6);
-  overflow-x: auto;
-}
-.detection-output .pass { color: #A7F3D0; }
-.detection-output .muted { color: #78716C; }
-.detection-output .prompt { color: #78716C; }
-.detection-output .accent { color: #E85D4A; }
-
-.packs {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: var(--space-6);
-  margin-top: var(--space-8);
-}
-.pack {
-  padding: var(--space-6);
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-}
-.pack.ultimate { border-color: var(--color-accent); }
-.pack h3 {
-  font-family: var(--font-display);
-  font-size: var(--text-2xl);
-  font-weight: 500;
-  margin-bottom: var(--space-2);
-  letter-spacing: -0.01em;
-}
-.pack .tagline {
-  font-size: var(--text-sm);
-  color: var(--color-text-secondary);
-  margin-bottom: var(--space-5);
-}
-.pack .specs {
-  list-style: none;
-  margin-bottom: var(--space-5);
-}
-.pack .specs li {
-  padding: var(--space-2) 0;
-  font-size: var(--text-sm);
-  border-bottom: 1px dotted var(--color-border);
-  display: flex;
-  justify-content: space-between;
-}
-.pack .specs li span:last-child {
-  color: var(--color-text-secondary);
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-}
-
-.all-download {
-  margin-top: var(--space-8);
-  padding: var(--space-5);
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
+  margin-bottom: 24px;
   flex-wrap: wrap;
-  gap: var(--space-4);
+  gap: 24px;
 }
-.all-download .name {
-  font-family: var(--font-display);
-  font-size: var(--text-lg);
+.results-stat .label {
+  font-family: "SF Mono", monospace;
+  font-size: 13px;
+  color: #737373;
+  margin-bottom: 4px;
+}
+.results-stat .score {
+  font-family: Georgia, serif;
+  font-size: 56px;
+  font-weight: 700;
+  line-height: 1;
+}
+.results-stat .score.clean { color: #10B981; }
+.results-stat .score.mild { color: #D97706; }
+.results-stat .score.heavy, .results-stat .score.maximum { color: #DC2626; }
+.results-stat .score span { font-size: 24px; color: #737373; }
+.results-stat .meta {
+  font-family: "SF Mono", monospace;
+  font-size: 13px;
+  color: #737373;
+  margin-top: 4px;
+}
+.triggered-list { display: flex; flex-direction: column; gap: 8px; }
+.triggered-item {
+  display: flex;
+  gap: 12px;
+  padding: 12px 16px;
+  background: #FFFFFF;
+  border: 1px solid #E5E5E5;
+  border-radius: 4px;
+  align-items: flex-start;
+}
+.cat-badge {
+  font-family: "SF Mono", monospace;
+  font-size: 13px;
+  padding: 2px 6px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.cat-Typography { background: #EDE9FE; color: #7C3AED; }
+.cat-Color { background: #FEE2E2; color: #DC2626; }
+.cat-Layout { background: #D1FAE5; color: #059669; }
+.cat-Content { background: #CFFAFE; color: #0891B2; }
+.cat-Motion { background: #FEF3C7; color: #D97706; }
+.weight-badge {
+  font-family: "SF Mono", monospace;
+  font-size: 13px;
+  color: #737373;
+  flex-shrink: 0;
+  width: 40px;
+}
+.triggered-item .desc {
+  font-size: 14px;
+  color: #0A0A0A;
   font-weight: 500;
-  margin-bottom: var(--space-1);
 }
-.all-download .desc {
-  font-size: var(--text-sm);
-  color: var(--color-text-secondary);
+.triggered-item .evidence {
+  font-family: "SF Mono", monospace;
+  font-size: 13px;
+  color: #737373;
+  margin-top: 4px;
+}
+.triggered-item .model-tag {
+  font-family: "SF Mono", monospace;
+  font-size: 13px;
+  color: #10B981;
+  margin-top: 4px;
 }
 
-footer {
-  border-top: 1px solid var(--color-border);
-  padding: var(--space-8) var(--space-6);
-  max-width: 1200px;
+/* ===== Tells gallery ===== */
+.filter-row { display: flex; gap: 8px; margin-bottom: 32px; flex-wrap: wrap; }
+.filter-btn {
+  padding: 6px 14px;
+  background: #FFFFFF;
+  color: #525252;
+  border: 1px solid #E5E5E5;
+  border-radius: 4px;
+  font-family: "SF Mono", monospace;
+  font-size: 13px;
+}
+.filter-btn.active { background: #0A0A0A; color: #FFFFFF; }
+.tells-grid {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: 16px;
+}
+.tell-card {
+  background: #FFFFFF;
+  border: 1px solid #E5E5E5;
+  border-radius: 4px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+}
+.tell-card .top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+  gap: 12px;
+}
+.tell-card .hex-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: "SF Mono", monospace;
+  font-size: 13px;
+  color: #737373;
+}
+.tell-card .hex-chip .swatch-mini {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  border: 1px solid #E5E5E5;
+}
+.tell-card h3 {
+  font-family: Georgia, serif;
+  font-size: 17px;
+  font-weight: 600;
+  color: #0A0A0A;
+  margin: 0 0 12px 0;
+  line-height: 1.3;
+}
+.tell-card .problem {
+  font-size: 13px;
+  line-height: 1.55;
+  color: #525252;
+  margin: 0 0 16px 0;
+  flex: 1;
+}
+.tell-card .fix-box {
+  padding: 10px 12px;
+  background: #FAFAFA;
+  /* border removed — was: border-left: 2px solid #10B981; */
+  font-size: 13px;
+  color: #0A0A0A;
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+.tell-card .model-line {
+  font-family: "SF Mono", monospace;
+  font-size: 13px;
+  color: #10B981;
+}
+
+/* ===== Model fingerprints ===== */
+.fingerprint-list {
+  max-width: 1280px;
   margin: 0 auto;
   display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.fingerprint-row {
+  background: #FFFFFF;
+  border: 1px solid #E5E5E5;
+  border-radius: 4px;
+  padding: 24px;
+  display: grid;
+  grid-template-columns: 220px 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+.fingerprint-row .col-label {
+  font-family: "SF Mono", monospace;
+  font-size: 13px;
+  color: #737373;
+  margin-bottom: 4px;
+}
+.fingerprint-row .col-label.green { color: #10B981; }
+.fingerprint-row .model-name {
+  font-family: Georgia, serif;
+  font-size: 17px;
+  font-weight: 600;
+  color: #0A0A0A;
+}
+.fingerprint-row .content {
+  font-size: 13px;
+  color: #0A0A0A;
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+.fingerprint-row .content.muted { color: #525252; font-size: 13px; }
+
+.antislop-box {
+  max-width: 1280px;
+  margin: 48px auto 0;
+  padding: 32px;
+  background: #0A0A0A;
+  color: #FAFAFA;
+  border-radius: 4px;
+}
+.antislop-box .label {
+  font-family: "SF Mono", monospace;
+  font-size: 13px;
+  color: #10B981;
+  margin-bottom: 12px;
+}
+.antislop-box pre {
+  font-family: "SF Mono", monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #FAFAFA;
+  margin: 0;
+  white-space: pre-wrap;
+}
+.antislop-box .note {
+  margin-top: 16px;
+  font-size: 13px;
+  color: #A3A3A3;
+}
+
+/* ===== Skill levels ===== */
+.skills-grid {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.skill-card {
+  background: #FFFFFF;
+  border: 1px solid #E5E5E5;
+  border-radius: 4px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+}
+.skill-card .accent-bar {
+  width: 32px;
+  height: 4px;
+  margin-bottom: 20px;
+}
+.skill-card .name {
+  font-family: "SF Mono", monospace;
+  font-size: 13px;
+  color: #0A0A0A;
+  margin-bottom: 16px;
+  font-weight: 500;
+}
+.skill-card .stat-row {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.skill-card .stat-label {
+  font-family: "SF Mono", monospace;
+  font-size: 13px;
+  color: #737373;
+  margin-bottom: 2px;
+}
+.skill-card .stat-value { font-size: 13px; color: #0A0A0A; }
+.skill-card .usage {
+  font-size: 13px;
+  line-height: 1.55;
+  color: #525252;
+  margin: 0 0 24px 0;
+  flex: 1;
+}
+.skill-card .download-btn {
+  display: inline-block;
+  padding: 10px 16px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 500;
+  text-align: center;
+  border: 1px solid;
+}
+
+/* ===== Footer ===== */
+.site-footer {
+  padding: 48px 32px;
+  background: #FFFFFF;
+  border-top: 1px solid #E5E5E5;
+}
+.footer-grid {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.footer-brand .dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background: #10B981;
+  border-radius: 2px;
+}
+.footer-brand .name {
+  font-family: "SF Mono", monospace;
+  font-size: 13px;
+  color: #0A0A0A;
+  font-weight: 600;
+}
+.footer-desc {
+  font-size: 13px;
+  line-height: 1.55;
+  color: #525252;
+  margin: 0;
+  max-width: 360px;
+}
+.footer-col-label {
+  font-family: "SF Mono", monospace;
+  font-size: 13px;
+  color: #737373;
+  margin-bottom: 12px;
+}
+.footer-col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.footer-col a {
+  font-size: 13px;
+  color: #525252;
+  transition: color 0.15s;
+}
+.footer-col a:hover {
+  color: #0A0A0A;
+  text-decoration: underline;
+  text-decoration-color: #10B981;
+}
+.footer-bottom {
+  max-width: 1280px;
+  margin: 48px auto 0;
+  padding-top: 24px;
+  border-top: 1px solid #E5E5E5;
+  display: flex;
   justify-content: space-between;
-  align-items: baseline;
-  font-size: var(--text-sm);
-  color: var(--color-text-muted);
+  font-family: "SF Mono", monospace;
+  font-size: 13px;
+  color: #737373;
   flex-wrap: wrap;
-  gap: var(--space-3);
-}
-footer a {
-  color: var(--color-text-secondary);
-  text-decoration: none;
-}
-footer a:hover { color: var(--color-accent); }
-
-@keyframes fadeSlideUp {
-  from { opacity: 0; transform: translateY(16px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.animate-in {
-  animation: fadeSlideUp var(--duration-slow) var(--ease-out-expo) both;
-}
-.animate-in:nth-child(1) { animation-delay: 0ms; }
-.animate-in:nth-child(2) { animation-delay: 80ms; }
-
-@media (prefers-reduced-motion: reduce) {
-  .animate-in { animation: none; }
-  * { transition: none !important; }
+  gap: 16px;
 }
 
-@media (max-width: 768px) {
-  .hero, .ladder, .comparison, .patterns-grid, .packs {
+/* ===== Responsive ===== */
+@media (max-width: 900px) {
+  .hero, .anchor-grid, .input-grid, .fingerprint-row, .skills-grid, .footer-grid {
     grid-template-columns: 1fr;
+    gap: 32px;
   }
-  .hero h1 { font-size: var(--text-4xl); }
-  nav ul { gap: var(--space-4); }
-  nav { flex-direction: column; align-items: flex-start; gap: var(--space-3); }
-  section { padding: var(--space-8) 0; }
+  .hero h1 { font-size: 40px; }
+  .section-header h2 { font-size: 32px; }
+  .site-header .nav { display: none; }
+  .fingerprint-row { grid-template-columns: 1fr; }
 }
-
-@media (min-width: 769px) and (max-width: 1024px) {
-  .packs { grid-template-columns: 1fr 1fr; }
-}
-
-.prose { max-width: 70ch; }
 </style>
 </head>
 <body>
 
-<nav>
-  <div class="logo">stop<span>.</span>slop</div>
-  <ul>
-    <li><a href="#ladder">The ladder</a></li>
-    <li><a href="#patterns">Patterns</a></li>
-    <li><a href="#detection">Detection</a></li>
-    <li><a href="#packs">Get the pack</a></li>
-  </ul>
-</nav>
-
-<section class="hero">
-  <div class="animate-in">
-    <h1>Kill AI design slop <em>at the source.</em></h1>
-    <p class="subhead">A skill pack that catches the patterns your eye has gone blind to. Inter as the default font. Lavender-purple accents. Card soup. Centered hero with a badge above the H1. Cut them.</p>
-    <div class="cta-row">
-      <a href="#packs" class="btn-primary">Get the pack</a>
-      <a href="#detection" class="btn-secondary">Run detection</a>
-    </div>
-  </div>
-  <div class="terminal animate-in">
-    <div><span class="prompt">$</span> node cli.mjs detect-files ./hero.html</div>
-    <div><span class="muted">Scanning 1 file...</span></div>
-    <div>&nbsp;</div>
-    <div><span class="bad">Score: 31/100 · Tier: maximum</span></div>
-    <div><span class="muted">Triggered: 9/20 patterns</span></div>
-    <div>&nbsp;</div>
-    <div><span class="accent">[3x]</span> inter_as_default</div>
-    <div><span class="accent">[3x]</span> lavender_purple</div>
-    <div><span class="accent">[3x]</span> colored_left_border_cards</div>
-    <div><span class="accent">[2x]</span> blue_purple_gradient</div>
-    <div><span class="accent">[2x]</span> gradient_text</div>
-    <div><span class="accent">[2x]</span> glassmorphism_everywhere</div>
-    <div><span class="accent">[1x]</span> pure_black_background</div>
-    <div>&nbsp;</div>
-    <div><span class="bad">Verdict: redesign</span></div>
-  </div>
-</section>
-
-<section id="ladder">
-  <div class="section-label">The method</div>
-  <h2 class="section-heading">Run the ladder. Stop at the first broken rung.</h2>
-  <div class="ladder">
-    <div>
-      <p class="prose" style="color: var(--color-text-secondary); font-size: var(--text-lg); line-height: 1.5;">The ladder is a reflex, not a research project. Two rungs work, take the higher one and move on. Fix the first broken rung. Re-run. Continue until the page passes every rung.</p>
-      <p style="margin-top: var(--space-5); color: var(--color-text-muted); font-size: var(--text-sm);">Same energy as Ponytail's ladder for code. Applied to design.</p>
-    </div>
-    <ol>
-      <li><div><h3>System</h3><p>Tokens defined before components. Color, type, spacing, elevation, motion. No token, no property.</p></div></li>
-      <li><div><h3>Type</h3><p>Two fonts minimum. Display paired with body. Size contrast of 1.25x or more between steps.</p></div></li>
-      <li><div><h3>Color</h3><p>No lavender-purple. No blue-to-purple gradients. No pure black. Tint everything toward a brand hue.</p></div></li>
-      <li><div><h3>Layout</h3><p>Left-align body text. One strong primitive repeated. No card soup. No colored left borders.</p></div></li>
-      <li><div><h3>Motion</h3><p>Ease-out, not bounce. Transform and opacity only. One orchestrated entrance. Stillness elsewhere.</p></div></li>
-      <li><div><h3>Content</h3><p>Specific headlines. Real metrics. Real photos. No label plus sublabel plus helper text all saying the same thing.</p></div></li>
-      <li><div><h3>Detection</h3><p>Run the script. Score the page. Ship if clean, revise if mild, redesign if heavy or maximum.</p></div></li>
-    </ol>
-  </div>
-</section>
-
-<section id="before-after">
-  <div class="section-label">Proof</div>
-  <h2 class="section-heading">What the skill does to a default SaaS hero.</h2>
-  <div class="comparison">
-    <div class="panel before">
-      <div class="panel-label">Before · AI first draft</div>
-      <h4>Build the Future of Your Business</h4>
-      <p>Full-width purple-to-blue gradient. Centered H1 in Inter Bold 48px. Small pill badge above reading "Now in Beta" with purple background. Two buttons. Three centered metrics in Inter Regular 14px gray. The output looks like every other AI-generated page.</p>
-      <p style="margin-top: var(--space-3); font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-accent);">12 patterns triggered · Score 31/100 · Maximum slop</p>
-    </div>
-    <div class="panel after">
-      <div class="panel-label">After · Stop Slop applied</div>
-      <h4>Your deploy pipeline runs in 12 seconds.</h4>
-      <p>Solid warm-charcoal background. Left-aligned H1 in a display serif at 56px. One button in coral. Right side: actual terminal screenshot showing a real deployment log. No metrics row. No badge. Specific headline. Real evidence.</p>
-      <p style="margin-top: var(--space-3); font-family: var(--font-mono); font-size: var(--text-xs); color: #3D8B5E;">0 patterns triggered · Score 94/100 · Clean</p>
-    </div>
-  </div>
-</section>
-
-<section id="patterns">
-  <div class="section-label">The catalog</div>
-  <h2 class="section-heading">50 patterns in Ultimate. 35 in Pro.</h2>
-  <p class="prose" style="color: var(--color-text-secondary); margin-top: var(--space-4); font-size: var(--text-lg);">Each pattern has a detection hint and a fix. The catalog is not a list of things that are always bad. It is a list of things that are slop when used by default, without deliberate choice.</p>
-  <div class="patterns-grid">
-    <div class="pattern-group">
-      <h3>Typography</h3>
-      <ul>
-        <li><span>Inter used for everything</span><span class="count">3x</span></li>
-        <li><span>Space Grotesk for accent words</span><span class="count">2x</span></li>
-        <li><span>Single font family</span><span class="count">2x</span></li>
-        <li><span>Flat size hierarchy</span><span class="count">2x</span></li>
-        <li><span>Monospace as technical shorthand</span><span class="count">1x</span></li>
-        <li><span>All-caps body text</span><span class="count">1x</span></li>
-      </ul>
-    </div>
-    <div class="pattern-group">
-      <h3>Color</h3>
-      <ul>
-        <li><span>Lavender-purple accents</span><span class="count">3x</span></li>
-        <li><span>Blue-to-purple gradients</span><span class="count">2x</span></li>
-        <li><span>Gradient text</span><span class="count">2x</span></li>
-        <li><span>Neon glow shadows</span><span class="count">2x</span></li>
-        <li><span>Pure black background</span><span class="count">1x</span></li>
-        <li><span>Aurora mesh background</span><span class="count">2x</span></li>
-      </ul>
-    </div>
-    <div class="pattern-group">
-      <h3>Layout</h3>
-      <ul>
-        <li><span>Everything centered</span><span class="count">1x</span></li>
-        <li><span>Badge above hero H1</span><span class="count">2x</span></li>
-        <li><span>Colored left border on cards</span><span class="count">3x</span></li>
-        <li><span>Identical feature cards</span><span class="count">3x</span></li>
-        <li><span>Cards inside cards</span><span class="count">2x</span></li>
-        <li><span>Centered hero trio</span><span class="count">2x</span></li>
-      </ul>
-    </div>
-    <div class="pattern-group">
-      <h3>Motion and content</h3>
-      <ul>
-        <li><span>Bounce or elastic easing</span><span class="count">2x</span></li>
-        <li><span>Glassmorphism everywhere</span><span class="count">2x</span></li>
-        <li><span>Scroll-jacking</span><span class="count">2x</span></li>
-        <li><span>AI sparkle badge</span><span class="count">2x</span></li>
-        <li><span>Vague aspirational headline</span><span class="count">2x</span></li>
-        <li><span>"Trusted by" logo strip</span><span class="count">2x</span></li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section id="detection">
-  <div class="section-label">Run it</div>
-  <h2 class="section-heading">Detection ships as two scripts. Both run.</h2>
-  <p class="prose" style="color: var(--color-text-secondary); margin-top: var(--space-4); font-size: var(--text-lg);">URL mode loads the page in Playwright and walks the DOM. File mode parses HTML and CSS directly, no browser. Both output the same JSON. Both use the same weighted checks.</p>
-  <div class="detection-output">
-    <div><span class="muted"># URL mode (Playwright)</span></div>
-    <div><span class="prompt">$</span> node cli.mjs detect https://your-site.com</div>
-    <div>&nbsp;</div>
-    <div><span class="muted"># Static file mode (no browser)</span></div>
-    <div><span class="prompt">$</span> node cli.mjs detect-files ./src</div>
-    <div>&nbsp;</div>
-    <div><span class="muted"># Output: JSON to stdout, summary to stderr</span></div>
-    <div>{</div>
-    <div>&nbsp;&nbsp;<span class="accent">"score"</span>: 94,</div>
-    <div>&nbsp;&nbsp;<span class="accent">"tier"</span>: <span class="pass">"clean"</span>,</div>
-    <div>&nbsp;&nbsp;<span class="accent">"verdict"</span>: <span class="pass">"ship"</span>,</div>
-    <div>&nbsp;&nbsp;<span class="accent">"triggeredCount"</span>: 1,</div>
-    <div>&nbsp;&nbsp;<span class="accent">"totalChecks"</span>: 35</div>
-    <div>}</div>
-  </div>
-</section>
-
-<section id="packs">
-  <div class="section-label">Three skills, one repo</div>
-  <h2 class="section-heading">Pick your weapon. All three live in slop-buster.</h2>
-  <p class="prose" style="color: var(--color-text-secondary); margin-top: var(--space-4); font-size: var(--text-lg); margin-bottom: var(--space-8);">Download a single skill, or grab the whole repo. Push a tag and GitHub Releases builds the zips for you.</p>
-  <div class="packs">
-    <div class="pack">
-      <h3>Stop Slop Advanced</h3>
-      <p class="tagline">The original reference skill. No detection. Manual application.</p>
-      <ul class="specs">
-        <li><span>Skills</span><span>1 (single)</span></li>
-        <li><span>Patterns</span><span>~25</span></li>
-        <li><span>Detection</span><span>None</span></li>
-        <li><span>Voice</span><span>Reference</span></li>
-        <li><span>License</span><span>MIT</span></li>
-      </ul>
-      <a href="https://github.com/The-greg-guy/slop-buster/releases/download/Major_Release/stop-slop-advanced.zip" class="btn-secondary">Download (30KB)</a>
-    </div>
-    <div class="pack">
-      <h3>Stop Slop Pro</h3>
-      <p class="tagline">Design slop plus text slop. Two peer skills. 35 patterns.</p>
-      <ul class="specs">
-        <li><span>Skills</span><span>design, text</span></li>
-        <li><span>Patterns</span><span>35</span></li>
-        <li><span>Detection checks</span><span>20</span></li>
-        <li><span>Examples</span><span>6</span></li>
-        <li><span>Voice</span><span>Level 1 direct</span></li>
-        <li><span>License</span><span>MIT</span></li>
-      </ul>
-      <a href="https://github.com/The-greg-guy/slop-buster/releases/download/Major_Release/stop-slop-pro.zip" class="btn-secondary">Download (42KB)</a>
-    </div>
-    <div class="pack ultimate">
-      <h3>Stop Slop Ultimate</h3>
-      <p class="tagline">Adds ponytail. Three peer skills. 50 patterns.</p>
-      <ul class="specs">
-        <li><span>Skills</span><span>design, text, ponytail</span></li>
-        <li><span>Patterns</span><span>50</span></li>
-        <li><span>Detection checks</span><span>35</span></li>
-        <li><span>Examples</span><span>10</span></li>
-        <li><span>Tailwind</span><span>v3 + v4</span></li>
-        <li><span>Voice</span><span>Level 2 direct</span></li>
-        <li><span>License</span><span>MIT</span></li>
-      </ul>
-      <a href="https://github.com/The-greg-guy/slop-buster/releases/download/Major_Release/stop-slop-ultimate.zip" class="btn-primary">Download (60KB)</a>
-    </div>
-  </div>
-
-</section>
-
-
-<footer>
-  <div>slop-buster · MIT · Built with the skill applied to itself.</div>
+<header class="site-header">
   <div>
-    <a href="https://github.com/The-greg-guy/slop-buster" target="_blank" rel="noopener noreferrer">GitHub</a>
-    ·
-    <a href="https://github.com/The-greg-guy/slop-buster/releases">Releases</a>
+    <span class="logo-dot"></span>
+    <span class="brand">slop-buster</span>
+    <span> / v1.7.1</span>
+  </div>
+  <nav class="nav">
+    <a href="#detector">Detector</a>
+    <a href="#tells">Patterns</a>
+    <a href="#models">Models</a>
+    <a href="#skills">Skills</a>
+    <a href="https://github.com/The-greg-guy/slop-buster" class="cta-link">GitHub ↗</a>
+  </nav>
+</header>
+
+<main>
+  <!-- ============================== HERO ============================== -->
+  <section class="hero" style="padding: 96px 32px 80px;">
+    <div>
+      <div class="kicker">V1.7.1</div>
+      <h1>The bone palette replaced the purple gradient.</h1>
+      <p class="lead">
+        Anthropic's Opus 4.8 prompt guide names the new house style verbatim:
+        <code>warm cream/off-white backgrounds (~#F4F1EA), serif display type, italic word-accents, and a terracotta/amber accent</code>.
+        This site catalogs 30 post-2026 design tells, scores them with 32 deterministic checks, and maps each to the model that likely produced it.
+      </p>
+      <div class="hero-ctas">
+        <a href="#detector" class="btn-primary">Try the detector</a>
+        <a href="#tells" class="btn-link">Browse the pattern catalog</a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="num">30</div>
+          <div>new post-2026 patterns</div>
+        </div>
+        <div>
+          <div class="num">32</div>
+          <div>deterministic checks</div>
+        </div>
+        <div>
+          <div class="num">8</div>
+          <div>model fingerprints</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="demo-label">
+        <span>opus-4.8-default.html</span>
+        <span class="slop-tag">● 8 slop patterns detected</span>
+      </div>
+      <div class="slop-demo-frame">
+        <div class="eyebrow">✦ Introducing</div>
+        <h2>Build <em>your</em> next <em>idea</em> with <em>confidence</em></h2>
+        <p>Acme Platform brings your team together with <em>powerful</em> tools.</p>
+        <div class="cta-row">
+          <span class="cta-primary">Start <em>free</em> trial</span>
+          <span class="cta-secondary">Talk to sales</span>
+        </div>
+        <span class="annotation" style="top:8px;right:8px;">bone bg</span>
+        <span class="annotation" style="top:48px;left:8px;">italic word-accents</span>
+        <span class="annotation" style="top:88px;right:8px;">Fraunces italic</span>
+        <span class="annotation" style="bottom:88px;left:8px;">tracking-tight</span>
+        <span class="annotation" style="bottom:48px;right:8px;">dual CTA</span>
+        <span class="annotation" style="bottom:8px;left:8px;">terracotta accent</span>
+      </div>
+      <div class="demo-caption">
+        The Opus 4.8 house style, rendered verbatim. This is what every Claude Design output looks like without a DESIGN.md.
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== ANCHOR PATTERNS ============================== -->
+  <section class="alt">
+    <div class="section-header">
+      <div class="kicker">§ 01 — THE TWO ANCHOR PATTERNS</div>
+      <h2>Named verbatim in Anthropic's Opus 4.8 prompt guide.</h2>
+      <p>
+        The two patterns the user identified — "random words in italics" and "bone color" — are not invented tells.
+        They appear together in a single paragraph of Anthropic's official documentation as the named house style of Claude Opus 4.8.
+      </p>
+    </div>
+
+    <div class="anchor-grid">
+      <!-- Anchor pattern 1: bone palette -->
+      <div class="anchor-card">
+        <div class="tag">PATTERN #1</div>
+        <h3>Bone color generation</h3>
+        <div class="swatch-row">
+          <div class="swatch"><div class="chip" style="background:#F4F1EA;"></div><div class="hex">#F4F1EA</div><div class="label">bg</div></div>
+          <div class="swatch"><div class="chip" style="background:#F4F3EE;"></div><div class="hex">#F4F3EE</div><div class="label">bg</div></div>
+          <div class="swatch"><div class="chip" style="background:#F6F5F2;"></div><div class="hex">#F6F5F2</div><div class="label">bg</div></div>
+          <div class="swatch"><div class="chip" style="background:#37352F;"></div><div class="hex">#37352F</div><div class="label">text</div></div>
+          <div class="swatch"><div class="chip" style="background:#191817;"></div><div class="hex">#191817</div><div class="label">text</div></div>
+          <div class="swatch"><div class="chip" style="background:#C96442;"></div><div class="hex">#C96442</div><div class="label">accent</div></div>
+          <div class="swatch"><div class="chip" style="background:#8A9A7B;"></div><div class="hex">#8A9A7B</div><div class="label">sage</div></div>
+          <div class="swatch"><div class="chip" style="background:#C9A8A0;"></div><div class="hex">#C9A8A0</div><div class="label">dust rose</div></div>
+        </div>
+        <p>
+          Warm cream/off-white background paired with warm-charcoal text and a terracotta/sage/dust-rose accent.
+          The 2026 replacement for VibeCode Purple. Identical across vet clinic, fintech, and crypto.
+        </p>
+        <div class="fix">
+          <strong>Fix:</strong> Pick a different accent. Mercury uses indigo <code>#5266EB</code>. Substack uses orange <code>#FF6719</code>. 925 Studios uses deep teal <code>#0D7377</code>.
+        </div>
+      </div>
+
+      <!-- Anchor pattern 2: italic word-accents -->
+      <div class="anchor-card">
+        <div class="tag">PATTERN #2</div>
+        <h3>Random words in italics</h3>
+        <div class="italic-demo">
+          <div class="headline">Build <em>your</em> next <em>idea</em> with <em>confidence</em>.</div>
+          <div class="subhead">Top CTA: "Ready to automate <em>everything</em>?"</div>
+        </div>
+        <p>
+          <code>&lt;em&gt;</code> tags mid-sentence in hero copy, feature titles, CTA labels. Verbal fry in typographic form.
+          When every sentence has an italic accent, none of them do. Impeccable quantifies this at 28-34% slop rate on editorial/food briefs.
+        </p>
+        <div class="fix">
+          <strong>Fix:</strong> Rewrite in roman. If emphasis is needed, use weight contrast (800 vs 400) or size contrast (3x). Cut italic from feature copy entirely.
+        </div>
+      </div>
+    </div>
+
+    <div class="quote-box">
+      <div class="source">SOURCE — platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-4-8</div>
+      <blockquote>
+        "Claude Opus 4.8 has strong design instincts, with a consistent default house style: warm cream/off-white backgrounds (~#F4F1EA), serif display type (Georgia, Fraunces, Playfair), italic word-accents, and a terracotta/amber accent. This reads well for editorial, hospitality, and portfolio briefs, but will feel off for dashboards, dev tools, fintech, healthcare, or enterprise apps."
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- ============================== LIVE DETECTOR ============================== -->
+  <section id="detector">
+    <div class="section-header">
+      <div class="kicker">§ 02 — LIVE DETECTOR</div>
+      <h2>Paste HTML + CSS. Get a score.</h2>
+      <p>
+        The detector runs 32 deterministic checks — the same checks shipped in the Advanced and Professional skill packages.
+        No LLM grading. Try a preset or paste your own.
+      </p>
+    </div>
+
+    <div class="detector">
+      <div class="preset-row">
+        <div class="label">PRESET DEMOS</div>
+        <div class="preset-buttons" id="preset-buttons"></div>
+        <div class="preset-desc" id="preset-desc"></div>
+      </div>
+
+      <div class="input-grid">
+        <div>
+          <div class="input-label">HTML</div>
+          <textarea class="code-input" id="html-input" spellcheck="false"></textarea>
+        </div>
+        <div>
+          <div class="input-label">CSS</div>
+          <textarea class="code-input" id="css-input" spellcheck="false"></textarea>
+        </div>
+      </div>
+
+      <button class="run-btn" onclick="runDetection()">Run detection →</button>
+
+      <div id="results-container"></div>
+    </div>
+  </section>
+
+  <!-- ============================== TELLS GALLERY ============================== -->
+  <section id="tells" class="alt">
+    <div class="section-header">
+      <div class="kicker">§ 03 — POST-2026 TELLS CATALOG</div>
+      <h2>22 patterns named, with hex codes and fixes.</h2>
+      <p>
+        Each pattern is documented with: the problem, why LLMs produce it, the fix, and (where relevant) the model fingerprint it's specifically tied to. Filter by category.
+      </p>
+    </div>
+
+    <div class="container">
+      <div class="filter-row" id="filter-row"></div>
+    </div>
+    <div class="tells-grid" id="tells-grid"></div>
+  </section>
+
+  <!-- ============================== MODEL FINGERPRINTS ============================== -->
+  <section id="models">
+    <div class="section-header">
+      <div class="kicker">§ 04 — MODEL-SPECIFIC FINGERPRINTS</div>
+      <h2>Different models need different overrides.</h2>
+      <p>
+        When you identify slop, name the model that likely produced it. Each model has its own default palette, typography, and structural reflexes. The Ultimate skill package ships this table verbatim.
+      </p>
+    </div>
+
+    <div class="fingerprint-list" id="fingerprint-list"></div>
+
+    <div class="antislop-box">
+      <div class="label">ANTHROPIC'S OWN ANTI-SLOP FRAGMENT — drop into your CLAUDE.md or DESIGN.md</div>
+      <pre>NEVER use generic AI-generated aesthetics like overused font families
+(Inter, Roboto, Arial, system fonts), cliched color schemes (particularly
+purple gradients on white or dark backgrounds), predictable layouts and
+component patterns, and cookie-cutter design that lacks context-specific
+character.</pre>
+      <div class="note">
+        From the October 2025 Frontend Aesthetics Cookbook. This fragment alone breaks about 60% of Claude Design defaults.
+        The remaining 40% — the bone palette and italic word-accents — requires the explicit palette + typography constraint.
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== SKILL LEVELS ============================== -->
+  <section id="skills" class="alt">
+    <div class="section-header">
+      <div class="kicker">§ 05 — THREE SKILL LEVELS</div>
+      <h2>Pick the fight you want.</h2>
+      <p>
+        All three skill levels now include the post-2026 patterns. Basic is brief, for quick AI review. Advanced adds detection. Professional adds the model-specific fingerprints section and ponytail (code shape).
+      </p>
+    </div>
+
+    <div class="skills-grid" id="skills-grid"></div>
+  </section>
+</main>
+
+<!-- ============================== FOOTER ============================== -->
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">
+        <span class="dot"></span>
+        <span class="name">slop-buster</span>
+      </div>
+      <p class="footer-desc">
+        Three skills for killing AI slop. Post-Q1 2026 edition detects the bone palette and italic word-accents named verbatim in Anthropic's Opus 4.8 prompt guide, plus 20 more tells. MIT licensed.
+      </p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-label">RESEARCH</div>
+      <ul>
+        <li><a href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-4-8">Opus 4.8 prompt guide</a></li>
+        <li><a href="https://adriankrebs.ch/blog/design-slop">Krebs Show HN audit</a></li>
+        <li><a href="https://impeccable.style/slop">Impeccable.style</a></li>
+        <li><a href="https://github.com/rohitg00/awesome-claude-design">awesome-claude-design</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-label">SKILLS</div>
+      <ul>
+        <li><a href="https://github.com/The-greg-guy/slop-buster/releases">stop-slop-lite</a></li>
+        <li><a href="https://github.com/The-greg-guy/slop-buster/releases">stop-slop-basic</a></li>
+        <li><a href="https://github.com/The-greg-guy/slop-buster/releases">stop-slop-advanced</a></li>
+        <li><a href="https://github.com/The-greg-guy/slop-buster/releases">stop-slop-professional</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-label">PROJECT</div>
+      <ul>
+        <li><a href="https://github.com/The-greg-guy/slop-buster">GitHub repository</a></li>
+        <li><a href="https://github.com/The-greg-guy/slop-buster/blob/main/LICENSE">MIT License</a></li>
+        <li><a href="https://github.com/The-greg-guy/slop-buster/blob/main/CONTRIBUTING.md">Contributing</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>MIT License</span>
+    <span><a href="https://github.com/The-greg-guy/slop-buster" style="color: #525252;">Source on GitHub</a></span>
   </div>
 </footer>
+
+<script>
+// =====================================================================
+// SLOP DETECTOR (client-side port of slop-buster skill checks.mjs)
+// =====================================================================
+
+const PRESET_DEMOS = {
+  opus48_bone_palette: {
+    name: "Opus 4.8 bone palette hero",
+    description: "The 2026 default. Warm cream + warm charcoal + terracotta + Fraunces + italic word-accents. Triggers bone_cream_palette, random_italic_hero_word, serif_hero_display, verb_first_hero_copy, centered_hero_dual_cta.",
+    html: `<section class="hero">
+  <span class="eyebrow">✦ <em>Introducing</em></span>
+  <h1>Build <em>your</em> next <em>idea</em> with <em>confidence</em></h1>
+  <p>Acme Platform brings your team together with <em>powerful</em> tools designed to streamline workflows.</p>
+  <div class="cta-row">
+    <a class="cta-primary">Start <em>free</em> trial</a>
+    <a class="cta-secondary">Talk to sales</a>
+  </div>
+</section>`,
+    css: `body {
+  background: #F4F1EA;
+  color: #37352F;
+  font-family: 'Inter', sans-serif;
+}
+.hero { text-align: center; padding: 96px 24px; }
+h1 {
+  font-family: 'Fraunces', serif;
+  font-size: 88px;
+  letter-spacing: -0.04em;
+  font-style: italic;
+}
+.eyebrow {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 13px;
+  color: #C96442;
+}
+.cta-primary {
+  background: #C96442;
+  color: #F4F1EA;
+  padding: 12px 24px;
+  border-radius: 8px;
+}
+.cta-secondary {
+  border: 1px solid #C96442;
+  color: #C96442;
+  padding: 12px 24px;
+  border-radius: 8px;
+}
+em { font-style: italic; }`
+  },
+  v0_lovable_purple: {
+    name: "v0 / Lovable purple gradient hero",
+    description: "The 2023-2025 default. Inter + indigo + purple gradient + centered hero + emoji badge. Triggers lavender_purple, blue_to_purple_gradient, gradient_text, inter_as_default, sparkle_emoji.",
+    html: `<section class="hero">
+  <span class="badge">🚀 Now in Beta</span>
+  <h1>Build the Future of Your Business</h1>
+  <p>Streamline your workflow with powerful AI-driven automation.</p>
+  <div class="cta-row">
+    <a class="cta-primary">Get Started</a>
+    <a class="cta-secondary">Learn More</a>
+  </div>
+  <div class="stats">
+    <div><strong>10M+</strong> Users</div>
+    <div><strong>99.9%</strong> Uptime</div>
+    <div><strong>200ms</strong> Response</div>
+  </div>
+</section>`,
+    css: `body {
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);
+  color: #0F172A;
+}
+.hero { text-align: center; padding: 96px 24px; }
+.badge {
+  background: #6366F1;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 9999px;
+  font-size: 14px;
+}
+h1 {
+  font-size: 56px;
+  background: linear-gradient(to right, #6366F1, #8B5CF6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.cta-primary {
+  background: linear-gradient(to right, #6366F1, #8B5CF6);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 9999px;
+}
+.cta-secondary {
+  border: 2px solid #6366F1;
+  color: #6366F1;
+  padding: 12px 24px;
+  border-radius: 9999px;
+}
+.stats { display: flex; gap: 48px; justify-content: center; margin-top: 48px; }
+.stats strong { font-size: 32px; color: #6366F1; }`
+  },
+  dark_mode_grey_text: {
+    name: "Opus 4.5 dark mode with grey body text",
+    description: "Krebs audit #1 tell at 34% of Show HN pages. Pure black + grey text failing WCAG + all-caps labels.",
+    html: `<section class="hero">
+  <span class="eyebrow">FEATURES</span>
+  <h1>Build the Future</h1>
+  <p>Modern AI infrastructure for the next generation of applications.</p>
+</section>`,
+    css: `body {
+  background: #000000;
+  color: #9CA3AF;
+  font-family: 'Inter', sans-serif;
+}
+.hero { text-align: center; padding: 96px 24px; }
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #A0A0A0;
+  font-size: 13px;
+}
+h1 {
+  font-size: 56px;
+  color: #FFFFFF;
+  letter-spacing: -0.04em;
+}
+p { color: #9CA3AF; }`
+  },
+  clean_editorial: {
+    name: "Clean editorial (no slop)",
+    description: "Deliberate design. Pure white bg, pure black text, distinctive typeface pairing, single CTA, real metric. Should score clean.",
+    html: `<section class="hero">
+  <h1>Your deploy pipeline runs in 12 seconds.</h1>
+  <p>Acme runs your CI on isolated runners. Median build time 43ms. Free for the first 1,000 minutes.</p>
+  <a class="cta">Run your first deploy</a>
+</section>`,
+    css: `body {
+  background: #FFFFFF;
+  color: #0A0A0A;
+  font-family: 'Söhne', system-ui, sans-serif;
+}
+.hero { padding: 96px 24px; max-width: 720px; }
+h1 {
+  font-family: 'Tiempos Headline', serif;
+  font-size: 64px;
+  letter-spacing: -0.01em;
+  font-weight: 600;
+  margin: 0 0 24px 0;
+}
+p { font-size: 18px; color: #525252; line-height: 1.6; margin: 0 0 32px 0; }
+.cta {
+  display: inline-block;
+  background: #0A0A0A;
+  color: #FFFFFF;
+  padding: 12px 24px;
+  border-radius: 4px;
+  font-weight: 500;
+}`
+  }
+};
+
+// Parse hex color
+function parseHex(hex) {
+  const m = hex.match(/^#?([0-9a-f]{6}|[0-9a-f]{3})$/i);
+  if (!m) return null;
+  let h = m[1];
+  if (h.length === 3) h = h.split("").map(c => c + c).join("");
+  return { r: parseInt(h.slice(0,2),16), g: parseInt(h.slice(2,4),16), b: parseInt(h.slice(4,6),16) };
+}
+
+function extractHexColors(css) {
+  const matches = css.match(/#[0-9a-f]{3,8}\b/gi) || [];
+  return matches.map(m => m.length === 4 ? `#${m[1]}${m[1]}${m[2]}${m[2]}${m[3]}${m[3]}` : m);
+}
+
+const BONE_ANCHORS = [
+  [0xF4,0xF1,0xEA], [0xF4,0xF3,0xEE], [0xF6,0xF5,0xF2],
+  [0xFA,0xF8,0xF2], [0xFA,0xF7,0xF2], [0xF0,0xEB,0xE3],
+];
+
+function isBone(hex) {
+  const c = parseHex(hex); if (!c) return false;
+  return BONE_ANCHORS.some(([r,g,b]) => Math.abs(c.r-r)<=6 && Math.abs(c.g-g)<=6 && Math.abs(c.b-b)<=6);
+}
+function isWarmCharcoal(hex) {
+  const c = parseHex(hex); if (!c) return false;
+  return c.r < 70 && c.g < 70 && c.b < 70 && c.r >= c.g && c.g >= c.b;
+}
+function isTerracotta(hex) {
+  const c = parseHex(hex); if (!c) return false;
+  return c.r>180 && c.r<230 && c.g>90 && c.g<130 && c.b>50 && c.b<90;
+}
+function isSage(hex) {
+  const c = parseHex(hex); if (!c) return false;
+  return c.r>130 && c.r<160 && c.g>150 && c.g<175 && c.b>115 && c.b<140;
+}
+function isDustRose(hex) {
+  const c = parseHex(hex); if (!c) return false;
+  return c.r>195 && c.r<215 && c.g>160 && c.g<180 && c.b>155 && c.b<175;
+}
+function isAmber(hex) {
+  const c = parseHex(hex); if (!c) return false;
+  return c.r>195 && c.r<215 && c.g>130 && c.g<160 && c.b>50 && c.b<90;
+}
+function isPurple(hex) {
+  const c = parseHex(hex); if (!c) return false;
+  const r=c.r/255, g=c.g/255, b=c.b/255;
+  const max=Math.max(r,g,b), min=Math.min(r,g,b);
+  const l=(max+min)/2;
+  if (max===min) return false;
+  const d=max-min;
+  let h=0;
+  if (max===r) h=((g-b)/d+(g<b?6:0))/6;
+  else if (max===g) h=((b-r)/d+2)/6;
+  else h=((r-g)/d+4)/6;
+  const hDeg=h*360;
+  const s = l>0.5 ? d/(2-max-min) : d/(max+min);
+  return hDeg>=250 && hDeg<=290 && s>0.5 && l>0.4 && l<0.8;
+}
+
+const CHECKS = [
+  { id:"bone_cream_palette", weight:3, category:"Color", model:"Claude Opus 4.7 / 4.8",
+    description:"Bone/cream background + warm-charcoal text + terracotta/sage/dust-rose/amber accent (Opus 4.7/4.8 house style)" },
+  { id:"random_italic_hero_word", weight:2, category:"Typography", model:"Claude Opus 4.7 / 4.8",
+    description:'One random italic word inside a hero headline (Opus 4.8 house-style copy pattern). Merged from the other AI\'s more precise check — requires 1-3 word italic span + 4+ word heading + abstract noun filter.' },
+  { id:"decorative_unicode_formatting", weight:1, category:"Typography",
+    description:"Unicode faux bold/italic (U+1D400-U+1D7FF) or decorative arrows/dot separators in prose. New in v1.7.0." },
+  { id:"editorial_eyebrow_separators", weight:2, category:"Layout",
+    description:'All-caps eyebrow label with dot or slash separators above hero (e.g. "NEW · AI OPS · PRIVATE BETA"). New in v1.7.0.' },
+  { id:"premium_abstract_word_soup", weight:2, category:"Content",
+    description:"Cluster of premium abstract nouns (clarity, trust, momentum, alignment, signal, intelligence, etc.) with no operational detail. New in v1.7.0." },
+  { id:"vague_bento_benefit_grid", weight:2, category:"Layout",
+    description:"Bento/card grid of vague benefits (Adaptive Intelligence, Seamless Integration, etc.) instead of concrete product detail. New in v1.7.0." },
+  { id:"serif_hero_display", weight:2, category:"Typography", model:"Claude Opus 4.7 / 4.8",
+    description:"Fraunces, Instrument Serif, or Playfair as hero display font (Opus 4.7/4.8 default)" },
+  { id:"crushed_letter_spacing", weight:1, category:"Typography",
+    description:'Hero headline with letter-spacing below -0.03em (the "tracking-tight" LLM reflex)' },
+  { id:"verb_first_hero_copy", weight:1, category:"Content",
+    description:"Hero headline starts with a generic AI verb (Build/Ship/Scale/Transform/Unlock/Supercharge)" },
+  { id:"useless_sticky_header", weight:2, category:"Layout",
+    description:"Sticky header with only in-page anchor links (no real navigation). New in v1.7.1." },
+  { id:"footer_meta_commentary", weight:1, category:"Content",
+    description:"Footer text that comments on the design itself (version strings, 'deliberately avoids', hex captions). New in v1.7.1." },
+  { id:"colored_border_on_blockquotes", weight:1, category:"Layout",
+    description:"Colored left border on blockquotes or code blocks (not just cards). New in v1.7.1." },
+  { id:"centered_hero_dual_cta", weight:1, category:"Layout",
+    description:'Centered hero with primary CTA + secondary "Talk to sales" button' },
+  { id:"inter_as_default", weight:3, category:"Typography",
+    description:"Inter used as the primary font (the Helvetica of the LLM era)" },
+  { id:"single_font_family", weight:2, category:"Typography",
+    description:"Only one font family used across the page (no typographic hierarchy)" },
+  { id:"lavender_purple", weight:3, category:"Color", model:"Claude Opus 4.5 / 4.6 / v0 / Lovable",
+    description:"Lavender-purple accents (the 2023-2025 VibeCode Purple tell)" },
+  { id:"blue_to_purple_gradient", weight:2, category:"Color",
+    description:"Blue-to-purple gradient (default modern gradient)" },
+  { id:"gradient_text", weight:2, category:"Color",
+    description:"Gradient text via background-clip: text" },
+  { id:"pure_black_bg", weight:1, category:"Color",
+    description:"Pure black #000000 background" },
+  { id:"shadcn_defaults", weight:2, category:"Color", model:"v0 by Vercel",
+    description:"shadcn/ui default gray palette (hsl(0 0% 3.9%) through hsl(0 0% 98%))" },
+  { id:"tailwind_indigo", weight:2, category:"Color", model:"v0 / Lovable / pre-2025 default",
+    description:"Tailwind-default indigo + slate + gray (bg-indigo-500, text-slate-900)" },
+  { id:"colored_card_border", weight:3, category:"Layout",
+    description:"Colored left/top border on cards (most reliable AI design tell)" },
+  { id:"glassmorphism", weight:2, category:"Motion",
+    description:"backdrop-filter: blur on multiple elements" },
+  { id:"aurora_mesh", weight:2, category:"Color",
+    description:"Aurora or mesh gradient backgrounds (3+ blurred color blobs)" },
+  { id:"emoji_nav", weight:1, category:"Layout",
+    description:"Emoji used as nav/sidebar icons" },
+  { id:"made_with_heart_footer", weight:1, category:"Content",
+    description:'Footer "Made with ♥ in [city]" or generic copyright' },
+  { id:"trusted_by_unverified", weight:1, category:"Content",
+    description:'"Trusted by 10,000+ companies" with no linked logos' },
+  { id:"sparkle_emoji", weight:1, category:"Content",
+    description:"Sparkle emoji (✨) used as AI badge" },
+  { id:"rocket_emoji", weight:1, category:"Content",
+    description:"Rocket emoji (🚀) in hero or CTA" },
+  { id:"mac_mockup", weight:1, category:"Layout", model:"v0 / Lovable / Claude Design",
+    description:"Mac mockup or isometric 3D illustration as hero image" },
+  { id:"marquee_carousel", weight:1, category:"Motion",
+    description:"Marquee logo carousel (infinite-scrolling grayscale logos)" },
+  { id:"count_up_stats", weight:1, category:"Motion",
+    description:"Animated count-up stats (JS counter from 0 to target)" },
+];
+
+function runCheck(id, html, css) {
+  const combined = html + "\n" + css;
+  switch (id) {
+    case "bone_cream_palette": {
+      const colors = extractHexColors(css);
+      const boneBg = colors.find(isBone);
+      const warmText = colors.find(isWarmCharcoal);
+      const accent = colors.find(c => isTerracotta(c) || isSage(c) || isDustRose(c) || isAmber(c));
+      return boneBg && warmText && accent
+        ? { triggered:true, evidence:`bg=${boneBg}, text=${warmText}, accent=${accent}` }
+        : { triggered:false };
+    }
+    case "random_italic_hero_word": {
+      // Merged from other AI's more precise check: 1-3 word italic span + 4+ word heading + abstract noun filter
+      const abstract = /^(trust|clarity|alignment|momentum|craft|signal|intelligence|velocity|resilience|future|commerce|workflows?|confidence|idea|everything|power|seamless|effortless|elegant)$/i;
+      // File mode (static analysis): regex on HTML for <em>/<i> inside h1/h2 with 1-3 word span
+      const re1 = /<h[12][^>]*>[\s\S]{0,160}<(em|i)[^>]*>\s*\w+(?:\s+\w+){0,2}\s*<\/\1>[\s\S]{0,160}<\/h[12]>/i;
+      if (re1.test(html)) {
+        // Extract the italic word and check if it's an abstract noun
+        const m = html.match(/<h[12][^>]*>[\s\S]{0,160}<(?:em|i)[^>]*>\s*(\w+(?:\s+\w+){0,2})\s*<\/(?:em|i)>[\s\S]{0,160}<\/h[12]>/i);
+        if (m) {
+          const words = m[1].trim().split(/\s+/);
+          if (words.some(w => abstract.test(w.replace(/[^a-z]/gi, ""))))
+            return { triggered:true, evidence:`Italic abstract noun: "${m[1]}"` };
+          return { triggered:true, evidence:`Random italic word in heading: "${m[1]}"` };
+        }
+        return { triggered:true, evidence:"<em>/<i> tag inside <h1>/<h2>" };
+      }
+      return { triggered:false };
+    }
+    case "decorative_unicode_formatting": {
+      const re = /[\u{1D400}-\u{1D7FF}]|(?:\w\s*[·×→]\s*\w)/u;
+      const combined = html + "\n" + css;
+      if (re.test(combined)) {
+        const m = combined.match(/[\u{1D400}-\u{1D7FF}]|(?:\w\s*[·×→]\s*\w)/u);
+        return { triggered:true, evidence:`Decorative Unicode: ${m[0]}` };
+      }
+      return { triggered:false };
+    }
+    case "editorial_eyebrow_separators": {
+      // Look for small all-caps text before h1 with dot/slash separators
+      // Match keyword + 2+ separator-separated multi-word tokens (e.g. "NEW · AI OPS · PRIVATE BETA")
+      // Token chars: uppercase letters, digits, spaces, hyphens — but NOT the separator chars · • //
+      const tokenChar = "[A-Z][A-Z0-9\\s-]*[A-Z0-9]";
+      const re = new RegExp("(?:NEW|BETA|AI|SYSTEM|OPS|DESIGN|PRIVATE|ENTERPRISE)(?:\\s*(?:·|•|//)\\s*" + tokenChar + "){2,}");
+      if (re.test(html)) {
+        const m = html.match(re);
+        return { triggered:true, evidence:`Eyebrow: "${m[0]}"` };
+      }
+      // Fallback: any 2+ uppercase tokens separated by · • //
+      const re2 = new RegExp("[A-Z]{2,}" + tokenChar + "?(?:\\s*(?:·|•|//)\\s*" + tokenChar + "){1,}");
+      if (re2.test(html)) {
+        const m = html.match(re2);
+        return { triggered:true, evidence:`Eyebrow separators: "${m[0]}"` };
+      }
+      return { triggered:false };
+    }
+    case "premium_abstract_word_soup": {
+      const terms = ["clarity","trust","momentum","alignment","signal","intelligence","infrastructure","orchestration","layer","fabric","protocol","velocity","resilience","seamless","adaptive","contextual"];
+      const concrete = /\b(api|csv|invoice|ticket|repo|database|checkout|calendar|email|slack|github|figma|stripe|user|admin|file|workflow|dashboard|report)\b/i;
+      const combined = (html + "\n" + css).toLowerCase();
+      const count = terms.filter(t => new RegExp("\\b" + t + "\\b", "i").test(combined)).length;
+      if (count >= 4 && !concrete.test(html + css)) {
+        const matched = terms.filter(t => new RegExp("\\b" + t + "\\b", "i").test(combined));
+        return { triggered:true, evidence:`${count} abstract nouns: ${matched.join(", ")}` };
+      }
+      return { triggered:false };
+    }
+    case "vague_bento_benefit_grid": {
+      const vague = /(adaptive intelligence|seamless integration|actionable insights|real-time orchestration|unlock|transform|optimi[sz]e|accelerate|empower|drive outcomes|meaningful engagement)/i;
+      const matches = html.match(new RegExp(vague.source, "gi")) || [];
+      const hasBentoGrid = /<(?:section|div)[^>]*(?:bento|grid|card)[^>]*>/i.test(html);
+      if (matches.length >= 3 || (hasBentoGrid && vague.test(html))) {
+        return { triggered:true, evidence:`${matches.length} vague benefit terms in grid` };
+      }
+      return { triggered:false };
+    }
+    case "serif_hero_display": {
+      const m = css.match(/font-family[^;]*(fraunces|instrument\s+serif|playfair)/i);
+      if (m) return { triggered:true, evidence:m[0] };
+      const tw = html.match(/font-(fraunces|playfair|instrument)/i);
+      if (tw) return { triggered:true, evidence:tw[0] };
+      return { triggered:false };
+    }
+    case "crushed_letter_spacing": {
+      const m = css.match(/letter-spacing\s*:\s*(-0\.0[3-9]|-0\.[1-9])/i);
+      if (m) return { triggered:true, evidence:m[0] };
+      if (/tracking-tight|tracking-tighter/.test(html))
+        return { triggered:true, evidence:"tracking-tight / tracking-tighter class" };
+      return { triggered:false };
+    }
+    case "verb_first_hero_copy": {
+      const verbs = ["build","ship","scale","transform","unlock","supercharge","empower","streamline","harness","leverage","reimagine","elevate","accelerate","amplify"];
+      const heroMatch = html.match(/<h1[^>]*>([^<]+)/i);
+      if (!heroMatch) return { triggered:false };
+      const firstWord = heroMatch[1].trim().toLowerCase().split(/\s+/)[0].replace(/[^a-z]/g,"");
+      return verbs.includes(firstWord) ? { triggered:true, evidence:`Hero starts with "${firstWord}"` } : { triggered:false };
+    }
+    case "useless_sticky_header": {
+      // Look for header with position:sticky/fixed containing only # anchor links
+      const headerMatch = html.match(/<header[^>]*>[\s\S]*?<\/header>/i);
+      if (!headerMatch) return { triggered:false };
+      const headerHtml = headerMatch[0];
+      const isSticky = /position:\s*(sticky|fixed)/i.test(headerHtml) || /class="[^"]*(?:sticky|fixed)[^"]*"/i.test(headerHtml);
+      if (!isSticky) return { triggered:false };
+      const links = headerHtml.match(/href="([^"]+)"/g) || [];
+      if (links.length < 2) return { triggered:false };
+      const allAnchors = links.every(l => /href="#/.test(l));
+      return allAnchors ? { triggered:true, evidence:`Sticky header with ${links.length} in-page anchor links, no real navigation` } : { triggered:false };
+    }
+    case "footer_meta_commentary": {
+      const footerMatch = html.match(/<footer[^>]*>[\s\S]*?<\/footer>/i) || html.match(/<[^>]*role="contentinfo"[^>]*>[\s\S]*?<\/[^>]+>/i);
+      if (!footerMatch) return { triggered:false };
+      const text = footerMatch[0];
+      const meta = /deliberately avoids|this demo|this site (deliberately|avoids)|background #|accent #|built with/i.test(text);
+      const versionStr = /v\d+\.\d+\.\d+.*·.*(?:MIT|Apache|GPL)/i.test(text);
+      return (meta || versionStr) ? { triggered:true, evidence:"Footer contains meta-commentary about the design" } : { triggered:false };
+    }
+    case "colored_border_on_blockquotes": {
+      // Check CSS for colored border-left on blockquote, pre, or code
+      const re1 = /blockquote\s*\{[^}]*border-left\s*:\s*\d+px\s+(?:solid|dashed|dotted)\s+[^;}]+/i;
+      const re2 = /pre\s*\{[^}]*border-left\s*:\s*\d+px\s+(?:solid|dashed|dotted)\s+[^;}]+/i;
+      const re3 = /code\s*\{[^}]*border-left\s*:\s*\d+px\s+(?:solid|dashed|dotted)\s+[^;}]+/i;
+      if (re1.test(css)) return { triggered:true, evidence:"Colored border-left on blockquote" };
+      if (re2.test(css)) return { triggered:true, evidence:"Colored border-left on pre/code block" };
+      if (re3.test(css)) return { triggered:true, evidence:"Colored border-left on code element" };
+      return { triggered:false };
+    }
+    case "centered_hero_dual_cta": {
+      const primary = /(get started|try free|start building|start free|sign up|try .* free)/i;
+      const secondary = /(talk to sales|book a demo|contact sales|learn more)/i;
+      const buttons = html.match(/<(a|button)[^>]*>([^<]+)<\/(?:a|button)>/gi) || [];
+      const texts = buttons.map(b => b.replace(/<[^>]+>/g,"").trim());
+      const hasP = texts.some(t => primary.test(t));
+      const hasS = texts.some(t => secondary.test(t));
+      return hasP && hasS ? { triggered:true, evidence:"Primary + secondary CTA pair detected" } : { triggered:false };
+    }
+    case "inter_as_default": {
+      if (/font-family[^;]*inter/i.test(css)) return { triggered:true, evidence:"Inter in font-family" };
+      if (/font-inter/.test(html)) return { triggered:true, evidence:"font-inter class" };
+      return { triggered:false };
+    }
+    case "single_font_family": {
+      const ffMatches = css.match(/font-family\s*:\s*([^;}]+)/gi) || [];
+      const families = new Set(ffMatches.map(m => m.split(":")[1].split(",")[0].trim().replace(/['"]/g,"").toLowerCase()));
+      if (families.size === 1 && !families.has("inherit") && !families.has("initial"))
+        return { triggered:true, evidence:`Only ${[...families][0]} used` };
+      return { triggered:false };
+    }
+    case "lavender_purple": {
+      const colors = extractHexColors(css);
+      const purple = colors.find(isPurple);
+      return purple ? { triggered:true, evidence:purple } : { triggered:false };
+    }
+    case "blue_to_purple_gradient": {
+      if (/linear-gradient|radial-gradient/i.test(css)) {
+        const m = css.match(/(linear|radial)-gradient\([^)]+\)/i);
+        if (m && /indigo|purple|violet|blue/i.test(m[0]))
+          return { triggered:true, evidence:m[0].slice(0,60)+"..." };
+      }
+      return { triggered:false };
+    }
+    case "gradient_text": {
+      if (/background-clip\s*:\s*text/i.test(css) || /bg-clip-text/.test(html))
+        return { triggered:true, evidence:"background-clip: text" };
+      return { triggered:false };
+    }
+    case "pure_black_bg": {
+      if (/#000000|#000\b/.test(css)) return { triggered:true, evidence:"#000000 background" };
+      if (/bg-black\b/.test(html)) return { triggered:true, evidence:"bg-black class" };
+      return { triggered:false };
+    }
+    case "shadcn_defaults": {
+      if (/hsl\(0\s+0%\s+3\.9%\)/i.test(css)) return { triggered:true, evidence:"shadcn gray hsl(0 0% 3.9%)" };
+      return { triggered:false };
+    }
+    case "tailwind_indigo": {
+      if (/indigo-500|slate-900|bg-gray-50/.test(html) || /indigo-500|slate-900/.test(css))
+        return { triggered:true, evidence:"Tailwind indigo/slate/gray defaults" };
+      return { triggered:false };
+    }
+    case "colored_card_border": {
+      if (/border-(left|top)\s*:\s*\d+px\s+(solid\s+)?(#[0-9a-f]{3,6}|[a-z]+)/i.test(css))
+        return { triggered:true, evidence:"Colored left/top border" };
+      if (/border-l-\d|border-t-\d/.test(html))
+        return { triggered:true, evidence:"border-l-/border-t- width class" };
+      return { triggered:false };
+    }
+    case "glassmorphism": {
+      const matches = css.match(/backdrop-filter\s*:\s*blur/gi) || [];
+      if (matches.length >= 3) return { triggered:true, evidence:`${matches.length} backdrop-filter: blur` };
+      if (/backdrop-blur/.test(html)) {
+        const m = html.match(/backdrop-blur/g) || [];
+        if (m.length >= 3) return { triggered:true, evidence:`${m.length} backdrop-blur classes` };
+      }
+      return { triggered:false };
+    }
+    case "aurora_mesh": {
+      const radials = css.match(/radial-gradient/gi) || [];
+      if (radials.length >= 3) return { triggered:true, evidence:`${radials.length} radial-gradient declarations` };
+      if (/filter\s*:\s*blur\(\s*[6-9]0px|filter\s*:\s*blur\(\s*\d{3}px/i.test(css))
+        return { triggered:true, evidence:"Heavy blur filter (aurora blob)" };
+      return { triggered:false };
+    }
+    case "emoji_nav": {
+      const navMatch = html.match(/<(nav|aside)[\s\S]*?<\/(?:nav|aside)>/i);
+      if (navMatch) {
+        const emojis = navMatch[0].match(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/gu);
+        if (emojis && emojis.length >= 2) return { triggered:true, evidence:`${emojis.length} emojis in nav` };
+      }
+      return { triggered:false };
+    }
+    case "made_with_heart_footer": {
+      if (/made with\s*[♥❤]|made with love/i.test(html)) return { triggered:true, evidence:'"Made with ♥" footer' };
+      if (/©\s*\d{4}\s+[A-Z][a-z]+(?!\s+inc|\s+llc|\s+ltd)/i.test(html)) return { triggered:true, evidence:"Generic copyright" };
+      return { triggered:false };
+    }
+    case "trusted_by_unverified": {
+      if (/trusted by\s+\d+[KMB]?\+|loved by\s+\d+[KMB]?\+/i.test(html))
+        return { triggered:true, evidence:"Unverifiable trust claim" };
+      return { triggered:false };
+    }
+    case "sparkle_emoji": {
+      if (/✨/u.test(html)) return { triggered:true, evidence:"Sparkle emoji ✨" };
+      return { triggered:false };
+    }
+    case "rocket_emoji": {
+      if (/🚀/u.test(html)) return { triggered:true, evidence:"Rocket emoji 🚀" };
+      return { triggered:false };
+    }
+    case "mac_mockup": {
+      if (/mockup|screenshot.*tilt|perspective\(/i.test(html))
+        return { triggered:true, evidence:"Mockup/screenshot with transform" };
+      if (/transform\s*:\s*(rotate|perspective)/i.test(css) && /mockup|hero-image|product-shot/i.test(html))
+        return { triggered:true, evidence:"Transformed hero image" };
+      return { triggered:false };
+    }
+    case "marquee_carousel": {
+      if (/@keyframes[^}]*translateX|animation[^;]*marquee/i.test(css)) {
+        const grayscale = /grayscale/i.test(css) || /grayscale/i.test(html);
+        if (grayscale) return { triggered:true, evidence:"Marquee + grayscale (logo carousel)" };
+      }
+      return { triggered:false };
+    }
+    case "count_up_stats": {
+      if (/countUp|count-up|animate.*counter|requestAnimationFrame.*count/i.test(combined))
+        return { triggered:true, evidence:"Count-up animation JS" };
+      return { triggered:false };
+    }
+    default: return { triggered:false };
+  }
+}
+
+function detectSlop(html, css) {
+  const results = CHECKS.map(check => {
+    const r = runCheck(check.id, html, css);
+    return { ...check, triggered:r.triggered, evidence:r.evidence };
+  });
+  const triggered = results.filter(r => r.triggered);
+  const triggeredSet = new Set(triggered.map(t => t.id));
+  let weightedFlagged = 0, weightedTotal = 0;
+  for (const c of results) {
+    weightedTotal += c.weight;
+    if (triggeredSet.has(c.id)) weightedFlagged += c.weight;
+  }
+  const slopRatio = weightedTotal > 0 ? weightedFlagged / weightedTotal : 0;
+  const score = Math.round((1 - slopRatio) * 100);
+  let tier;
+  if (triggeredSet.size <= 2) tier = "clean";
+  else if (triggeredSet.size <= 5) tier = "mild";
+  else if (triggeredSet.size <= 8) tier = "heavy";
+  else tier = "maximum";
+  let verdict;
+  if (score >= 70 && triggeredSet.size <= 2) verdict = "ship";
+  else if (score >= 50 || triggeredSet.size <= 5) verdict = "revise";
+  else verdict = "redesign";
+  let likelyModel;
+  const modelCounts = new Map();
+  for (const t of triggered) {
+    if (t.model) modelCounts.set(t.model, (modelCounts.get(t.model) || 0) + 1);
+  }
+  if (modelCounts.size > 0) {
+    likelyModel = [...modelCounts.entries()].sort((a,b) => b[1]-a[1])[0][0];
+  }
+  return { score, tier, verdict, triggered, triggeredCount:triggeredSet.size, totalChecks:CHECKS.length, weightedTotal, weightedFlagged, likelyModel };
+}
+
+// ===== Tell cards data =====
+const TELLS = [
+  { id:"bone-palette", category:"Color", name:"Bone / cream / off-white background",
+    problem:'The Opus 4.8 prompt guide names this verbatim: "warm cream/off-white backgrounds (~#F4F1EA)." Paired with warm-charcoal text and terracotta accent, this is the 2026 replacement for VibeCode Purple. Identical across vet clinic, fintech, and crypto.',
+    fix:"Commit to a real brand color. If you want cream, pick a different accent (indigo #5266EB, orange #FF6719, deep teal #0D7377, oxblood #7B1E1E).",
+    model:"Claude Opus 4.7 / 4.8", hex:"#F4F1EA" },
+  { id:"italic-word-accents", category:"Typography", name:'Italic word-accents in headings ("Build *your* next *idea*")',
+    problem:'The Opus 4.8 prompt guide names this verbatim: "italic word-accents." Manifests as <em> tags mid-sentence in hero copy, feature titles, CTA labels. Verbal fry in typographic form. When every sentence has an italic accent, none of them do.',
+    fix:"Rewrite the headline in roman. If emphasis is needed, use weight contrast (800 vs 400) or size contrast (3x).",
+    model:"Claude Opus 4.7 / 4.8" },
+  { id:"fraunces-hero", category:"Typography", name:"Fraunces / Instrument Serif / Playfair as hero display",
+    problem:'The 2026 italic-serif hero reflex. Impeccable: "Anthropic/Google\'s 28-34% italic-serif-display slop on editorial/food briefs." When you see Fraunces + Inter + cream background, you are looking at Opus 4.7/4.8 output.',
+    fix:"If you want serif display, pick a less-loaded face (Tiempos, GT Sectra, Canela, Newsreader). Or commit to a sans-only hero.",
+    model:"Claude Opus 4.7 / 4.8" },
+  { id:"tracking-tight", category:"Typography", name:"Tracking-tight oversized hero headline (-0.04em)",
+    problem:'The "modern premium" reflex. Computed letter-spacing below -0.03em on a 64-96px hero. Once you see it, every AI hero from 2025 onward is crushed.',
+    fix:"Use -0.01 to -0.02em on large headings only. Or zero tracking and let the typeface breathe." },
+  { id:"aphoristic-cadence", category:"Content", name:'Aphoristic-cadence headline ("Not X. *Y.*")',
+    problem:'Two-clause headline landing on a short italic-serif rebuttal. Anthropic\'s impeccable.style flags this as "Aphoristic-cadence copy." Examples: "It\'s not a feature. *A platform.*" "Days fade. *Dots don\'t.*"',
+    fix:"Say what the product does. Don't perform wit." },
+  { id:"section-eyebrows", category:"Typography", name:'Section eyebrows as italic-serif kicker labels ("✦ *Introducing*")',
+    problem:'Italic-serif tracked-letterspaced labels above section headings. Anthropic\'s own impeccable.style flags this exact pattern as "Hero eyebrow / pill chip."',
+    fix:"Cut the eyebrow. Or replace with a numbered section marker only if the section is genuinely sequential.",
+    model:"Claude Opus 4.7 / 4.8" },
+  { id:"bone-dark-brown", category:"Color", name:'"Bone + dark brown" dark mode (#2A2520 on #1A1714)',
+    problem:'Dark mode using warm browns that fail contrast. The bone palette leaking into dark mode with worse accessibility. "Dark-mode sites where the text and subtext are various shades of dark brown or beige. It looks awful. It breaks accessibility standards."',
+    fix:"Use a tinted near-black background (oklch(15% 0.02 250)) and pure off-white text (#FAFAFA).",
+    model:"Claude Opus 4.7 / 4.8" },
+  { id:"warm-charcoal-wcag", category:"Color", name:"Warm-charcoal text on cream failing WCAG AA",
+    problem:"The bone palette's accessibility failure mode. #5A5548 'warm gray' text on #F4F1EA cream is contrast 5.0:1 — passes AA for body but fails AAA, fails AA for small text below 18px.",
+    fix:"Use #191817 or #2A2924 for all body text on cream. Reserve #5A5548 for muted secondary only." },
+  { id:"dark-grey-text", category:"Color", name:"Permanent dark mode with medium-grey body text",
+    problem:"Background #0B0B0F, body text #9CA3AF. Krebs audit: 34% of Show HN pages — the single most common tell. Usually fails WCAG AA contrast.",
+    fix:"Use #D4D4D8 or lighter for body text on dark backgrounds (contrast 9:1+). Or commit to a light theme.",
+    model:"Claude Opus 4.5 / 4.6" },
+  { id:"mac-mockup", category:"Layout", name:"Mac mockup or isometric 3D illustration as hero image",
+    problem:"Floating laptop/screenshot with slight 3D tilt + soft shadow. Default v0 / Lovable / Bolt hero visual.",
+    fix:"Use a real product screenshot, no rotation. Or omit the hero image entirely and let the headline carry.",
+    model:"v0 / Lovable / Bolt / Claude Design" },
+  { id:"marquee-carousel", category:"Motion", name:"Marquee logo carousel",
+    problem:"Infinite-scrolling row of grayscale client logos. Animated, distracting, never informative.",
+    fix:"Static logo grid. Or remove entirely if logos don't link to case studies." },
+  { id:"count-up-stats", category:"Motion", name:'Animated count-up stats ("10M+ users" from 0)',
+    problem:"JS counter animation from 0 to target. Distracting, slows page, no informational value.",
+    fix:"Display the final number. Skip the animation." },
+  { id:"centered-dual-cta", category:"Layout", name:'Centered hero with two CTAs (primary + "Talk to sales")',
+    problem:'Primary CTA "Start free trial" + secondary ghost button "Talk to sales". Default AI hero button pair. Universal across v0/Lovable/Bolt output.',
+    fix:'One CTA. Or two CTAs with specific verbs tied to the product ("Run your first deploy" / "Read the docs").' },
+  { id:"aurora-blobs", category:"Layout", name:"Generic abstract geometric / aurora blobs as hero illustration",
+    problem:"Blurred colored blobs as hero illustration. Same on every site. Default LLM hero visual.",
+    fix:"Real product screenshot. Real photography. Or strong typography alone." },
+  { id:"inconsistent-radii", category:"Layout", name:"Inconsistent radii (rounded-xl + rounded-2xl + rounded-full)",
+    problem:"The model doesn't have a radius system. Real design systems commit to one or two radii.",
+    fix:"Commit to 2-3 radii max. E.g. --radius-sm: 4px, --radius-md: 8px, --radius-pill: 9999px." },
+  { id:"verb-first-hero", category:"Content", name:'Generic verb-first hero copy ("Build / Ship / Scale / Transform / Unlock")',
+    problem:"The LLM's reflex when given no brief. Could describe any company. The model defaults to starting with a verb when it has no specific claim to make.",
+    fix:'State what the product does, specifically. E.g. "Your deploy pipeline runs in 12 seconds."' },
+  { id:"footer-heart", category:"Content", name:'Footer "Made with ♥ in [city]" or "© 2026 [Generic]"',
+    problem:"Default LLM footer. Universal across generated sites.",
+    fix:"Real entity name. Real city. Real license. Or omit." },
+  { id:"cta-arrow", category:"Content", name:'"Get Started" / "Try Free" / "Start Building" CTAs with arrow icon',
+    problem:"The model's default CTA vocabulary. Could be any product. Universal across AI-generated pages.",
+    fix:'Use a verb specific to the product. "Run your first deploy" beats "Get Started."' },
+  { id:"pricing-copy", category:"Content", name:'Pricing copy: "/month billed annually" + "Save 20%"',
+    problem:"The model's reflex for pricing UX. Universal across AI-generated pricing pages.",
+    fix:"State the actual price. State the actual billing period. Skip the marketing overlay." },
+  { id:"tailwind-indigo", category:"Color", name:"Tailwind-default indigo + slate + gray",
+    problem:"Adam Wathan's bg-indigo-500 Tailwind UI default (apologized for Aug 2025) propagated through training data. The single most common AI landing-page palette of 2024.",
+    fix:"Define your own palette. Pick a different accent. Tint the grays.",
+    model:"v0 / Lovable / pre-2025 default" },
+  { id:"vibecode-purple", category:"Color", name:"VibeCode Purple (lavender-purple #635BFF / indigo-500)",
+    problem:"The most recognizable AI color tell of 2023-2025. Still the second-most common after bone. Tailwind UI default that propagated through training data.",
+    fix:"Choose earth tones, cream-and-pink, high-contrast black-and-bright, warm reds, cool greens.",
+    model:"Claude Opus 4.5 / 4.6 / v0 / Lovable" },
+];
+
+const MODEL_FINGERPRINTS = [
+  { fingerprint:"Warm cream ~#F4F1EA + terracotta #C96442 + Fraunces + italic word-accents",
+    model:"Claude Opus 4.7 / 4.8",
+    why:'The Opus 4.8 prompt guide names this verbatim as the model\'s "consistent default house style." Persistent across "don\'t use cream" prompts.',
+    override:"Constrain with explicit palette + typography. Have the model propose 3 options before building. Use Anthropic's <frontend_aesthetics> anti-slop prompt." },
+  { fingerprint:"Permanent dark mode + medium-grey body text + all-caps section labels",
+    model:"Claude Opus 4.5 / 4.6",
+    why:"Adrian Krebs' Show HN audit (1,590 pages, April 2026) flags permanent dark theme as the #1 tell at 34% of pages.",
+    override:"Override with explicit light-mode brief + specific accent color. Provide a DESIGN.md with --bg: #FFFFFF and --text: #1A1A1A." },
+  { fingerprint:"Inter + Space Grotesk + Instrument Serif combo",
+    model:'Any Claude 4.x when told "avoid Inter"',
+    why:'Anthropic\'s own cookbook: "You still tend to converge on common choices (Space Grotesk, for example) across generations."',
+    override:'Name a specific font pairing. Don\'t ask the model to "avoid" — ask it to "use." E.g. "Use Söhne for body and Tiempos Headline for display."' },
+  { fingerprint:"shadcn/ui defaults (rounded-xl, shadow-sm, bg-gray-50, Inter)",
+    model:"v0 by Vercel",
+    why:'shadcn is "explicitly designed to be copy-pasted by AI agents." Vercel community: "every v0 generation looks like the same bland, emotionless page."',
+    override:"Override every default token. Restyle to match your design system. Define --radius, --shadow, --bg, --font in a DESIGN.md and feed it as non-negotiable." },
+  { fingerprint:"Mac mockup + aurora blob + Inter + indigo CTA",
+    model:"Lovable default",
+    why:'Lovable\'s most-cited output fingerprint. The "Purple Problem" exemplar.',
+    override:"Provide a DESIGN.md with explicit color tokens and typography. Replace Mac mockup with real screenshot. Replace aurora blob with solid background." },
+  { fingerprint:'"Cleaner, more modern" implicit warm-cream lean',
+    model:"GLM-4.7 / GLM-5.x",
+    why:'GLM-4.7 release notes: "GLM-4.7 takes a big step forward in improving UI quality. It produces cleaner, more modern webpages."',
+    override:"Specify cool palette (Toss-blue, sage, cool gray). Name a Chinese-minimalism or Swiss-editorial reference. Provide specific hex codes." },
+  { fingerprint:"Functional dense dashboard, Inter + saturated single accent, no italic-serif hero",
+    model:"DeepSeek V4 Pro",
+    why:'DeepSeek V4 changelog: "Generated web pages and games now feature improved aesthetics. Reduced Hallucinations."',
+    override:"Usually fine. Watch for overuse of DeepSeek brand blue on non-DeepSeek sites." },
+  { fingerprint:"Mac mockup + cream background + Fraunces",
+    model:"Claude Design (Opus 4.7)",
+    why:'The Muzli one-week-in review calls this the "house style." Claude Design ships with the warm-cream/terracotta/Fraunces house style across industries.',
+    override:'Provide a DESIGN.md. Use Anthropic\'s anti-slop fragment. Name an aesthetic family explicitly (e.g. "Terminal-Core" or "Data-Dense Pro").' },
+];
+
+const SKILL_LEVELS = [
+  { name:"stop-slop-lite", patterns:"35 patterns",
+    checks:"No executable checks",
+    skills:"Design + text (single skill)",
+    usage:"Stripped-down basic. Use when token budget is tight and you want the highest-signal subset.",
+    accent:"#737373" },
+  { name:"stop-slop-basic", patterns:"~50 patterns",
+    checks:"No executable checks (detection logic documented)",
+    skills:"Design + text (single skill)",
+    usage:"For quick AI review. Load it, let the AI read through the patterns, the AI applies the fixes on its own.",
+    accent:"#525252" },
+  { name:"stop-slop-advanced", patterns:"65+ patterns",
+    checks:"31 weighted deterministic checks",
+    skills:"Design + text (peer skills)",
+    usage:"Perfect for after development / routine checks. Two peer skills load on demand. Detection runs against live URLs or static files.",
+    accent:"#0A0A0A" },
+  { name:"stop-slop-professional", patterns:"80+ patterns + Model-Specific Fingerprints section",
+    checks:"48 weighted deterministic checks",
+    skills:"Design + text + ponytail (code shape)",
+    usage:"Useful while developing, good when tokens don't matter. The only skill level that names the likely model and gives per-model overrides.",
+    accent:"#10B981" },
+];
+
+const CATEGORY_COLORS = {
+  Typography: "#7C3AED", Color: "#DC2626", Layout: "#059669",
+  Content: "#0891B2", Motion: "#D97706",
+};
+
+// ===== Initialize the page =====
+let activeDemo = "opus48_bone_palette";
+let filterCategory = "All";
+
+function renderPresets() {
+  const container = document.getElementById("preset-buttons");
+  container.innerHTML = "";
+  for (const [key, demo] of Object.entries(PRESET_DEMOS)) {
+    const btn = document.createElement("button");
+    btn.className = "preset-btn" + (activeDemo === key ? " active" : "");
+    btn.textContent = demo.name;
+    btn.onclick = () => loadPreset(key);
+    container.appendChild(btn);
+  }
+  document.getElementById("preset-desc").textContent = PRESET_DEMOS[activeDemo].description;
+}
+
+function loadPreset(key) {
+  activeDemo = key;
+  document.getElementById("html-input").value = PRESET_DEMOS[key].html;
+  document.getElementById("css-input").value = PRESET_DEMOS[key].css;
+  document.getElementById("results-container").innerHTML = "";
+  renderPresets();
+}
+
+function renderFilters() {
+  const container = document.getElementById("filter-row");
+  const cats = ["All", "Typography", "Color", "Layout", "Content", "Motion"];
+  container.innerHTML = "";
+  for (const cat of cats) {
+    const btn = document.createElement("button");
+    btn.className = "filter-btn" + (filterCategory === cat ? " active" : "");
+    btn.textContent = cat;
+    btn.onclick = () => { filterCategory = cat; renderTells(); renderFilters(); };
+    container.appendChild(btn);
+  }
+}
+
+function renderTells() {
+  const container = document.getElementById("tells-grid");
+  container.innerHTML = "";
+  const filtered = filterCategory === "All" ? TELLS : TELLS.filter(t => t.category === filterCategory);
+  for (const tell of filtered) {
+    const card = document.createElement("div");
+    card.className = "tell-card";
+    const topRow = `<div class="top-row">
+      <span class="cat-badge cat-${tell.category}">${tell.category}</span>
+      ${tell.hex ? `<div class="hex-chip"><span class="swatch-mini" style="background:${tell.hex};"></span>${tell.hex}</div>` : ""}
+    </div>`;
+    card.innerHTML = `
+      ${topRow}
+      <h3>${tell.name}</h3>
+      <p class="problem">${tell.problem}</p>
+      <div class="fix-box"><strong>Fix:</strong> ${tell.fix}</div>
+      ${tell.model ? `<div class="model-line">→ ${tell.model}</div>` : ""}
+    `;
+    container.appendChild(card);
+  }
+}
+
+function renderFingerprints() {
+  const container = document.getElementById("fingerprint-list");
+  container.innerHTML = "";
+  for (const m of MODEL_FINGERPRINTS) {
+    const row = document.createElement("div");
+    row.className = "fingerprint-row";
+    row.innerHTML = `
+      <div>
+        <div class="col-label">LIKELY MODEL</div>
+        <div class="model-name">${m.model}</div>
+      </div>
+      <div>
+        <div class="col-label">FINGERPRINT</div>
+        <div class="content">${m.fingerprint}</div>
+        <div class="content muted">${m.why}</div>
+      </div>
+      <div>
+        <div class="col-label green">OVERRIDE</div>
+        <div class="content">${m.override}</div>
+      </div>
+    `;
+    container.appendChild(row);
+  }
+}
+
+function renderSkills() {
+  const container = document.getElementById("skills-grid");
+  container.innerHTML = "";
+  for (const s of SKILL_LEVELS) {
+    const card = document.createElement("div");
+    card.className = "skill-card";
+    card.innerHTML = `
+      <div class="accent-bar" style="background:${s.accent};"></div>
+      <div class="name">${s.name}</div>
+      <div class="stat-row">
+        <div><div class="stat-label">PATTERNS</div><div class="stat-value">${s.patterns}</div></div>
+        <div><div class="stat-label">CHECKS</div><div class="stat-value">${s.checks}</div></div>
+        <div><div class="stat-label">SKILLS INCLUDED</div><div class="stat-value">${s.skills}</div></div>
+      </div>
+      <p class="usage">${s.usage}</p>
+      <a href="https://github.com/The-greg-guy/slop-buster/releases" class="download-btn"
+         style="${s.accent === "#10B981" ? "background:#10B981;color:#FFFFFF;border-color:#10B981;" : `background:transparent;color:${s.accent};border-color:${s.accent};`}">
+        Download ↗
+      </a>
+    `;
+    container.appendChild(card);
+  }
+}
+
+function runDetection() {
+  const html = document.getElementById("html-input").value;
+  const css = document.getElementById("css-input").value;
+  const result = detectSlop(html, css);
+  const container = document.getElementById("results-container");
+  container.innerHTML = "";
+
+  const results = document.createElement("div");
+  results.className = "results";
+
+  let triggeredHtml = "";
+  if (result.triggered.length > 0) {
+    triggeredHtml = `<div style="font-family:'SF Mono',monospace;font-size:11px;color:#737373;margin-bottom:12px;">TRIGGERED PATTERNS</div>
+      <div class="triggered-list">
+        ${result.triggered.map(t => `
+          <div class="triggered-item">
+            <span class="cat-badge cat-${t.category}">${t.category}</span>
+            <span class="weight-badge">${t.weight}x</span>
+            <div style="flex:1;">
+              <div class="desc">${t.description}</div>
+              ${t.evidence ? `<div class="evidence">evidence: ${t.evidence}</div>` : ""}
+              ${t.model ? `<div class="model-tag">model: ${t.model}</div>` : ""}
+            </div>
+          </div>
+        `).join("")}
+      </div>`;
+  }
+
+  results.innerHTML = `
+    <div class="results-header">
+      <div class="results-stat">
+        <div class="label">SCORE</div>
+        <div class="score ${result.tier}">${result.score}<span>/100</span></div>
+        <div class="meta">Tier: ${result.tier} · Verdict: ${result.verdict}</div>
+      </div>
+      <div class="results-stat">
+        <div class="label">TRIGGERED</div>
+        <div class="score" style="font-size:32px;color:#0A0A0A;">${result.triggeredCount}<span style="font-size:16px;color:#737373;"> / ${result.totalChecks} checks</span></div>
+        <div class="meta">Weighted: ${result.weightedFlagged} / ${result.weightedTotal}</div>
+      </div>
+      ${result.likelyModel ? `
+        <div class="results-stat">
+          <div class="label">LIKELY MODEL</div>
+          <div class="score" style="font-size:20px;color:#0A0A0A;max-width:260px;">${result.likelyModel}</div>
+          <div class="meta">(inferred from triggered patterns)</div>
+        </div>
+      ` : ""}
+    </div>
+    ${triggeredHtml}
+  `;
+  container.appendChild(results);
+}
+
+// ===== Initialize =====
+renderPresets();
+renderFilters();
+renderTells();
+renderFingerprints();
+renderSkills();
+loadPreset("opus48_bone_palette");
+</script>
 
 </body>
 </html>

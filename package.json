@@ -1,16 +1,16 @@
 {
   "name": "slop-buster",
-  "version": "1.0.0",
-  "description": "Three skills for killing AI slop. One repo.",
+  "version": "1.7.1",
+  "description": "Four skills for killing AI slop. One repo. Post-Q1 2026 edition with bone palette detection and model-specific fingerprints.",
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "detect:pro": "node skills/stop-slop-pro/skills/design-slop/references/cli.mjs detect",
-    "detect:ultimate": "node skills/stop-slop-ultimate/skills/design-slop/references/cli.mjs detect",
-    "detect-files:pro": "node skills/stop-slop-pro/skills/design-slop/references/cli.mjs detect-files",
-    "detect-files:ultimate": "node skills/stop-slop-ultimate/skills/design-slop/references/cli.mjs detect-files",
-    "list:pro": "node skills/stop-slop-pro/skills/design-slop/references/cli.mjs list",
-    "list:ultimate": "node skills/stop-slop-ultimate/skills/design-slop/references/cli.mjs list",
+    "detect:advanced": "node skills/stop-slop-advanced/skills/design-slop/references/cli.mjs detect",
+    "detect:professional": "node skills/stop-slop-professional/skills/design-slop/references/cli.mjs detect",
+    "detect-files:advanced": "node skills/stop-slop-advanced/skills/design-slop/references/cli.mjs detect-files",
+    "detect-files:professional": "node skills/stop-slop-professional/skills/design-slop/references/cli.mjs detect-files",
+    "list:advanced": "node skills/stop-slop-advanced/skills/design-slop/references/cli.mjs list",
+    "list:professional": "node skills/stop-slop-professional/skills/design-slop/references/cli.mjs list",
     "build-releases": "bash scripts/build-releases.sh"
   },
   "keywords": [
@@ -20,7 +20,11 @@
     "yagni",
     "skills",
     "claude-skills",
-    "ponytail"
+    "ponytail",
+    "bone-palette",
+    "italic-word-accents",
+    "opus-4.8",
+    "model-fingerprints"
   ],
   "repository": {
     "type": "git",
